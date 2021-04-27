@@ -1,0 +1,46 @@
+@model IEnumerable<Servicios.Interface.Provincia.ProvinciaDto>
+
+@{
+    ViewData["Title"] = "Provincias";
+}
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+        <div class="border">
+            <label class="text-center">Nueva Provincia</label>
+            <hr>
+            <div class="contenedor-formulario">
+                <form asp-action="Add" asp-controller="Provincia" method="POST" id="formularioProvincia">
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <input type="text" class="form-control" id="txtDescripcion" name="Descripcion">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">GRABAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+        <table class="table table-sm table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-provincias">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+.contenedor-formulario{
+    margin:5px;
+}
+</style>
+
+<script src="~/Scripts/Provincia.js"></script>

@@ -11,6 +11,8 @@ namespace Sistema.Sanatorio
     using Infraestructura.Repositorio;
     using Infraestructura.UnidadDeTrabajo;
     using Entidades.UnidadDeTrabajo;
+    using Servicios.Interface.Provincia;
+    using Servicios.Implementacion.Provincia;
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,6 +32,7 @@ namespace Sistema.Sanatorio
 
             services.AddSingleton(typeof(IRepositorio<>), typeof(Repositorio<>));
             services.AddTransient<IUnidadDeTrabajo, UnidadDeTrabajo>();
+            services.AddTransient<IProvinciaServicio, ProvinciaServicio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
