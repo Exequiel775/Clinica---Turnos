@@ -1,0 +1,13 @@
+C:\Users\User\Sistema.Sanatorio\Entidades\bin\Debug\net5.0\Entidades.deps.json
+C:\Users\User\Sistema.Sanatorio\Entidades\bin\Debug\net5.0\Entidades.dll
+C:\Users\User\Sistema.Sanatorio\Entidades\bin\Debug\net5.0\ref\Entidades.dll
+C:\Users\User\Sistema.Sanatorio\Entidades\bin\Debug\net5.0\Entidades.pdb
+C:\Users\User\Sistema.Sanatorio\Entidades\bin\Debug\net5.0\Entidad.Base.dll
+C:\Users\User\Sistema.Sanatorio\Entidades\bin\Debug\net5.0\Entidad.Base.pdb
+C:\Users\User\Sistema.Sanatorio\Entidades\obj\Debug\net5.0\Entidades.csprojAssemblyReference.cache
+C:\Users\User\Sistema.Sanatorio\Entidades\obj\Debug\net5.0\Entidades.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Sistema.Sanatorio\Entidades\obj\Debug\net5.0\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\User\Sistema.Sanatorio\Entidades\obj\Debug\net5.0\Entidades.csproj.CopyComplete
+C:\Users\User\Sistema.Sanatorio\Entidades\obj\Debug\net5.0\Entidades.dll
+C:\Users\User\Sistema.Sanatorio\Entidades\obj\Debug\net5.0\ref\Entidades.dll
+C:\Users\User\Sistema.Sanatorio\Entidades\obj\Debug\net5.0\Entidades.pdb

@@ -1,0 +1,10 @@
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\bin\Debug\net5.0\Entidad.Base.deps.json
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\bin\Debug\net5.0\Entidad.Base.dll
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\bin\Debug\net5.0\ref\Entidad.Base.dll
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\bin\Debug\net5.0\Entidad.Base.pdb
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\obj\Debug\net5.0\Entidad.Base.csprojAssemblyReference.cache
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\obj\Debug\net5.0\Entidad.Base.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\obj\Debug\net5.0\Entidad.Base.csproj.CoreCompileInputs.cache
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\obj\Debug\net5.0\Entidad.Base.dll
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\obj\Debug\net5.0\ref\Entidad.Base.dll
+C:\Users\User\Sistema.Sanatorio\Entidad.Base\obj\Debug\net5.0\Entidad.Base.pdb
