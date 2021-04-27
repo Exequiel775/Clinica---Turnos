@@ -45,9 +45,12 @@ namespace Infraestructura.Repositorio
             return await result.ToListAsync();
         }
 
-        public async Task<T> GetById(long id)
+        public async Task<T> GetById(long entidadId, string propiedadNavegacion = "")
         {
-            return null;
+            var resultado = propiedadNavegacion.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries)
+            .Aggregate<string, IQueryable<T>>(_db.Set<T>(), (current, include) => current.Include(include));
+
+            return await resultado.FirstOrDefaultAsync(x => x.Id == entidadId);
         }
     }
 }

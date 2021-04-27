@@ -9,6 +9,6 @@ namespace Entidad.Base.Repositorio
     {
         Task<bool> Add(T entidadNueva);
         Task<IEnumerable<T>> Get(Expression<Func<T, bool>> filtro = null, string propiedadNavegacion = "");
-        Task<T> GetById(long id);
+        Task<T> GetById(long entidadId, string propiedadNavegacion = "");
     }
 }
