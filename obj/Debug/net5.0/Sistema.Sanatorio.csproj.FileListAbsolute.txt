@@ -85,3 +85,7 @@ C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Entidades\bin\Debug\net5.0\Enti
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Infraestructura\bin\Debug\net5.0\Infraestructura.deps.json
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Infraestructura\bin\Debug\net5.0\Infraestructura.runtimeconfig.dev.json
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Infraestructura\bin\Debug\net5.0\Infraestructura.runtimeconfig.json
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Entidad.Base.dll
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Entidades.dll
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Entidades.pdb
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Entidad.Base.pdb

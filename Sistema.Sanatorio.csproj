@@ -16,4 +16,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="Entidades\Entidades.csproj" />
+    <ProjectReference Include="Entidad.Base\Entidad.Base.csproj" />
+  </ItemGroup>
+
 </Project>

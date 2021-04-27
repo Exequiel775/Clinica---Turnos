@@ -1,18 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Infraestructura;
-using Microsoft.EntityFrameworkCore;
-
 namespace Sistema.Sanatorio
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Infraestructura;
+    using Microsoft.EntityFrameworkCore;
+    using Entidad.Base.Repositorio;
+    using Infraestructura.Repositorio;
+    using Infraestructura.UnidadDeTrabajo;
+    using Entidades.UnidadDeTrabajo;
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -29,6 +27,9 @@ namespace Sistema.Sanatorio
             services.AddMvcCore();
 
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Conexion")));
+
+            services.AddSingleton(typeof(IRepositorio<>), typeof(Repositorio<>));
+            services.AddTransient<IUnidadDeTrabajo, UnidadDeTrabajo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

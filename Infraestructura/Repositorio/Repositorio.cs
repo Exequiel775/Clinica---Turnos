@@ -22,10 +22,6 @@ namespace Infraestructura.Repositorio
             {
                 await _db.Set<T>().AddAsync(entidadNueva);
 
-                await _db.SaveChangesAsync();
-
-            
-
                 return true;
             }
             catch
