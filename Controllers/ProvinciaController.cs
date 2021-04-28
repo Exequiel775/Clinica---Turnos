@@ -31,12 +31,33 @@ namespace Sistema.Sanatorio.Controllers
             return Json(new { finalizado = false });
         }
 
+        [HttpPut]
+        public async Task<JsonResult> ModificarProvincia([FromBody] ProvinciaDto provinciaModificar)
+        {
+            if (ModelState.IsValid)
+            {
+                var ejecutarModificacion = await _provinciaServicio.Update(provinciaModificar);
+
+                return Json(new { finalizado = ejecutarModificacion });
+            }
+
+            return Json(new { finalizado = false });
+        }
+
         [HttpGet]
         public async Task<JsonResult> JsonProvincias()
         {
             var todasProvincias = await _provinciaServicio.Get();
 
             return Json(new { provincias = todasProvincias });
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> JsonGetProvincia(long idProvincia)
+        {
+            var provinciaBuscar = await _provinciaServicio.GetById(idProvincia);
+
+            return Json(new { provincia = provinciaBuscar } );
         }
     }
 }

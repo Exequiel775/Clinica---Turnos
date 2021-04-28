@@ -30,6 +30,21 @@ namespace Infraestructura.Repositorio
             }
         }
 
+        public async Task Update(T entidadModificar)
+        {
+            if (entidadModificar == null)
+                throw new System.Exception("Ocurrio un error al modificar la entidad");
+
+            _db.Set<T>().Attach(entidadModificar);
+
+            var entidad = await _db.Set<T>().FirstOrDefaultAsync(x => x.Id == entidadModificar.Id);
+
+            if (entidad != null)
+                _db.Entry(entidad).State = EntityState.Detached;
+
+            _db.Entry(entidadModificar).State = EntityState.Modified;
+        }
+
         public async Task<IEnumerable<T>> Get(System.Linq.Expressions.Expression<System.Func<T, bool>> filtro = null, string propiedadNavegacion = "")
         {
             var result = propiedadNavegacion.Split(new char[] { ',' }, 

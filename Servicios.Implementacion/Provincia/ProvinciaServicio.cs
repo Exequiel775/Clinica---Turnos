@@ -34,6 +34,28 @@ namespace Servicios.Implementacion.Provincia
             }
         }
 
+        public async Task<bool> Update(ProvinciaDto provinciaModificar)
+        {
+            try
+            {
+                var entidadModificar = new Entidades.Provincia
+                {
+                    Id = provinciaModificar.Id,
+                    Descripcion = provinciaModificar.Descripcion
+                };
+
+                await _unidadDeTrabajo.RepositorioProvincia.Update(entidadModificar);
+
+                await _unidadDeTrabajo.Commit();
+
+                return true;
+            }
+            catch
+            {
+                return await Task.Run(() => false);
+            }
+        }
+
         public async Task<IEnumerable<ProvinciaDto>> Get()
         {
             var provincias = await _unidadDeTrabajo.RepositorioProvincia.Get();

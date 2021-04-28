@@ -5,6 +5,7 @@ namespace Servicios.Interface.Provincia
     public interface IProvinciaServicio
     {
         Task<bool> Add(ProvinciaDto provincia);
+        Task<bool> Update(ProvinciaDto provinciaModificar);
         Task<IEnumerable<ProvinciaDto>> Get();
         Task<ProvinciaDto> GetById(long id);    
     }
