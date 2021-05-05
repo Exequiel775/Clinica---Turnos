@@ -15,6 +15,7 @@ namespace Sistema.Sanatorio
     using Servicios.Implementacion.Provincia;
     using Servicios.Interface.Localidad;
     using Servicios.Implementacion.Localidad;
+    using Hubs.App;
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -29,6 +30,7 @@ namespace Sistema.Sanatorio
         {
             services.AddControllersWithViews();
             services.AddMvcCore();
+            services.AddSignalR();
 
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Conexion")));
 
@@ -55,6 +57,8 @@ namespace Sistema.Sanatorio
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 
@@ -63,6 +67,8 @@ namespace Sistema.Sanatorio
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<LocalidadHub>("/hubLocalidad");
+                endpoints.MapHub<PruebaHub>("/hubPrueba");
             });
         }
     }

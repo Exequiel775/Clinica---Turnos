@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Provincia = void 0;
 var Provincia = /** @class */ (function () {
     function Provincia() {
@@ -159,3 +159,4 @@ function api<T>(url: string): Promise<T> {
       })
   }
   */ 
+//# sourceMappingURL=Provincia.js.map

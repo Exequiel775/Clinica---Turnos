@@ -28,6 +28,7 @@
           "Microsoft.EntityFrameworkCore.Design": "5.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.5",
+          "Microsoft.TypeScript.MSBuild": "4.2.4",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -632,6 +633,7 @@
       },
       "Microsoft.NETCore.Platforms/3.1.0": {},
       "Microsoft.NETCore.Targets/1.1.3": {},
+      "Microsoft.TypeScript.MSBuild/4.2.4": {},
       "Microsoft.Win32.Registry/4.7.0": {
         "dependencies": {
           "System.Security.AccessControl": "4.7.0",
@@ -3202,6 +3204,13 @@
       "sha512": "sha512-3Wrmi0kJDzClwAC+iBdUBpEKmEle8FQNsCs77fkiOIw/9oYA07bL1EZNX0kQ2OMN3xpwvl0vAtOCYY3ndDNlhQ==",
       "path": "microsoft.netcore.targets/1.1.3",
       "hashPath": "microsoft.netcore.targets.1.1.3.nupkg.sha512"
+    },
+    "Microsoft.TypeScript.MSBuild/4.2.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WGeDETWYE5IKArEIrKSo92rta9bglEUqujJqwhKTxdUrMf5+vmCAVmiFmLbevbFr2S7F2pTvX1Y5JtdGlT5auw==",
+      "path": "microsoft.typescript.msbuild/4.2.4",
+      "hashPath": "microsoft.typescript.msbuild.4.2.4.nupkg.sha512"
     },
     "Microsoft.Win32.Registry/4.7.0": {
       "type": "package",

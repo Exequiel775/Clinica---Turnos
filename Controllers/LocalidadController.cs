@@ -24,6 +24,12 @@ namespace Sistema.Sanatorio.Controllers
         {
             return Json(new { localidades = await _localidadServicio.Get() });
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetById(long loc)
+        {
+            return Json(new { localidad = await _localidadServicio.GetById(loc) } );
+        }
         
         [HttpPost]
         public async Task<JsonResult> Add([FromBody] LocalidadDto localidad)
@@ -31,6 +37,14 @@ namespace Sistema.Sanatorio.Controllers
             var agregarProvincia = await _localidadServicio.Add(localidad);
 
             return Json(new { respuesta = agregarProvincia });
+        }
+
+        [HttpPut]
+        public async Task<JsonResult> Update([FromBody] LocalidadDto localidadModificar)
+        {
+            if (!ModelState.IsValid) return Json(new { respuesta = false });
+
+            return Json(new { respuesta = await _localidadServicio.Update(localidadModificar) });
         }
     }
 }

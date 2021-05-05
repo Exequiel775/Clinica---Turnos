@@ -4,7 +4,9 @@
     ViewData["Title"] = "Localidades";
 }
 
-<div class="row">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="row bg-white">
     <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
         <div class="text-center">
             <h4>NUEVA LOCALIDAD</h4>
@@ -33,6 +35,7 @@
                         <th>#</th>
                         <th>Descripción</th>
                         <th>Provincia</th>
+                        <th>Acciónes</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-localidad">
@@ -41,6 +44,45 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalLocalidad" tabindex="-1" role="dialog" aria-labelledby="modalLocalidadLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Modificar Localidad</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+              <div class="form-group">
+                  <label>Provincia</label>
+                  <select class="form-control" name="NuevaProvincia" id="cmbNuevaProvincia">
+
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label>Descripción</label>
+                  <input type="text" class="form-control" name="NuevaDescripcion" id="txtNuevaDescripcion">
+              </div>
+              <hr>
+              <div class="form-group">
+                  <input type="button" class="btn btn-success" id="modificarLocalidad" data-dismiss="modal" value="MODIFICAR">
+              </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    body{
+        background: rgba(222, 222, 222);
+    }
+</style>
 
 <script>var exports = { "__esModule": true };</script>
 <script src="~/Scripts/Localidad.js"></script>
