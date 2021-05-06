@@ -167,7 +167,7 @@ document.getElementById('modificar').onclick = () => {
     })
 }
 
-export { Provincia }
+export { Provincia, ProvinciaServicio }
 
 /*
 function api<T>(url: string): Promise<T> {

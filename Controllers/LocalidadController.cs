@@ -39,7 +39,7 @@ namespace Sistema.Sanatorio.Controllers
             return Json(new { respuesta = agregarProvincia });
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<JsonResult> Update([FromBody] LocalidadDto localidadModificar)
         {
             if (!ModelState.IsValid) return Json(new { respuesta = false });

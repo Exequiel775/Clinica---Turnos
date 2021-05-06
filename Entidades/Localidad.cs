@@ -2,6 +2,7 @@ namespace Entidades
 {
     using Entidad.Base;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Collections.Generic;
 
     [Table("Localidad")]
     public class Localidad : EntityBase
@@ -11,5 +12,6 @@ namespace Entidades
 
         // NAVEGACION
         public virtual Provincia Provincia { get; set; }
+        public virtual ICollection<Persona> Personas {get; set;}
     }
 }

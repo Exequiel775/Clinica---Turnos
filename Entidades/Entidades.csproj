@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Entidad.Base\Entidad.Base.csproj" />
+    <ProjectReference Include="..\Constantes\Constantes.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

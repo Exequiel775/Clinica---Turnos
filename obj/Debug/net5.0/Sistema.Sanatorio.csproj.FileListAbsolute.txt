@@ -90,3 +90,5 @@ C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Localidad\Index.csh
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\package-lock.json
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\package.json
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\tsconfig.json
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Constantes\obj\Constantes.csproj.nuget.dgspec.json
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Constantes\obj\project.assets.json

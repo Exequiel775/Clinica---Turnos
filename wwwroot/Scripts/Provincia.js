@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Provincia = void 0;
+exports.ProvinciaServicio = exports.Provincia = void 0;
 var Provincia = /** @class */ (function () {
     function Provincia() {
     }
@@ -76,6 +76,7 @@ var ProvinciaServicio = /** @class */ (function () {
     };
     return ProvinciaServicio;
 }());
+exports.ProvinciaServicio = ProvinciaServicio;
 // =================== ACCIONES SOBRE BOTONES Y LLAMADAS A SERVICIOS ======================= //
 document.addEventListener('DOMContentLoaded', function () {
     ActualizarTabla();
