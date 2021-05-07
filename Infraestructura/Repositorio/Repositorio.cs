@@ -16,7 +16,7 @@ namespace Infraestructura.Repositorio
             _db = db;
         }
 
-        public async Task<bool> Add(T entidadNueva)
+        public virtual async Task<bool> Add(T entidadNueva)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Infraestructura.Repositorio
             }
         }
 
-        public async Task Update(T entidadModificar)
+        public virtual async Task Update(T entidadModificar)
         {
             if (entidadModificar == null)
                 throw new System.Exception("Ocurrio un error al modificar la entidad");
@@ -45,7 +45,7 @@ namespace Infraestructura.Repositorio
             _db.Entry(entidadModificar).State = EntityState.Modified;
         }
 
-        public async Task<IEnumerable<T>> Get(System.Linq.Expressions.Expression<System.Func<T, bool>> filtro = null, string propiedadNavegacion = "")
+        public virtual async Task<IEnumerable<T>> Get(System.Linq.Expressions.Expression<System.Func<T, bool>> filtro = null, string propiedadNavegacion = "")
         {
             var result = propiedadNavegacion.Split(new char[] { ',' }, 
             System.StringSplitOptions.RemoveEmptyEntries)
@@ -56,7 +56,7 @@ namespace Infraestructura.Repositorio
             return await result.ToListAsync();
         }
 
-        public async Task<T> GetById(long entidadId, string propiedadNavegacion = "")
+        public virtual async Task<T> GetById(long entidadId, string propiedadNavegacion = "")
         {
             var resultado = propiedadNavegacion.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries)
             .Aggregate<string, IQueryable<T>>(_db.Set<T>(), (current, include) => current.Include(include));

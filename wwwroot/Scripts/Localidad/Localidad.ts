@@ -1,4 +1,4 @@
-import { Localidad } from './ClaseLocalidad';
+import { Localidad, LocalidadPaginada } from './ClaseLocalidad';
 import {ILocalidadServicio} from './ILocalidad';
 
 class LocalidadServicio implements ILocalidadServicio
@@ -24,18 +24,18 @@ class LocalidadServicio implements ILocalidadServicio
         });
     }
 
-    Get(): Promise<Localidad[]> {
-        return fetch('/Localidad/Get',{
+    Get(paginado: number = null): Promise<LocalidadPaginada> {
+        return fetch(`/Localidad/Get?paginado=${paginado}`,{
             method:'GET'
         })
         .then(response => {
             if(!response.ok){
                 throw new Error(response.statusText);
             }
-            return response.json() as Promise<{localidades: Localidad[]}>
+            return response.json() as Promise<{ objetoPaginado : LocalidadPaginada }>
         })
         .then(json => {
-            return json.localidades;
+            return json.objetoPaginado;
         })
     }
 

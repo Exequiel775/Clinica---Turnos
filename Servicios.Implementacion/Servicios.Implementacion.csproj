@@ -4,6 +4,7 @@
     <ProjectReference Include="..\Servicios.Interface\Servicios.Interface.csproj" />
     <ProjectReference Include="..\Entidades\Entidades.csproj" />
     <ProjectReference Include="..\Entidad.Base\Entidad.Base.csproj" />
+    <ProjectReference Include="..\Constantes\Constantes.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

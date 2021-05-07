@@ -16,6 +16,8 @@ namespace Sistema.Sanatorio
     using Servicios.Interface.Localidad;
     using Servicios.Implementacion.Localidad;
     using Hubs.App;
+    using Entidades.Repositorio;
+    using Servicios.Interface.Persona;
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -35,9 +37,11 @@ namespace Sistema.Sanatorio
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Conexion")));
 
             services.AddSingleton(typeof(IRepositorio<>), typeof(Repositorio<>));
+            services.AddTransient<IRepositorioRecepcionista, RepositorioRecepcionista>();
             services.AddTransient<IUnidadDeTrabajo, UnidadDeTrabajo>();
             services.AddTransient<IProvinciaServicio, ProvinciaServicio>();
             services.AddTransient<ILocalidadServicio, LocalidadServicio>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

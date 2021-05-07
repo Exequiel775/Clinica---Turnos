@@ -22,8 +22,9 @@ var LocalidadServicio = /** @class */ (function () {
             return json.respuesta;
         });
     };
-    LocalidadServicio.prototype.Get = function () {
-        return fetch('/Localidad/Get', {
+    LocalidadServicio.prototype.Get = function (paginado) {
+        if (paginado === void 0) { paginado = null; }
+        return fetch("/Localidad/Get?paginado=" + paginado, {
             method: 'GET'
         })
             .then(function (response) {
@@ -33,7 +34,7 @@ var LocalidadServicio = /** @class */ (function () {
             return response.json();
         })
             .then(function (json) {
-            return json.localidades;
+            return json.objetoPaginado;
         });
     };
     LocalidadServicio.prototype.GetById = function (id) {

@@ -42,30 +42,26 @@ var ClaseLocalidad_1 = require("./ClaseLocalidad");
 var _localidadServicio = new Localidad_1.LocalidadServicio();
 var _provinciaServicio = new Provincia_1.ProvinciaServicio();
 var _localidadSeleccionada;
-document.addEventListener('DOMContentLoaded', function () {
-    (function () { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _b = (_a = console).log;
-                    return [4 /*yield*/, _provinciaServicio.Get()];
-                case 1:
-                    _b.apply(_a, [_c.sent()]);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    ActualizarTabla();
-    CargarCmbProvincia('cmbProvincia');
-});
+document.addEventListener('DOMContentLoaded', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var cantidadPaginas;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                ActualizarTabla(null);
+                CargarCmbProvincia('cmbProvincia');
+                return [4 /*yield*/, _localidadServicio.Get(null)];
+            case 1:
+                cantidadPaginas = _a.sent();
+                CrearBotonesPaginado(cantidadPaginas.paginas);
+                return [2 /*return*/];
+        }
+    });
+}); });
 document.getElementById('modificarLocalidad').addEventListener('click', function () { return __awaiter(void 0, void 0, void 0, function () {
     var ejecutarModificacion;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                alert('A actualizar');
-                return [4 /*yield*/, ModificarLocalidad()];
+            case 0: return [4 /*yield*/, ModificarLocalidad()];
             case 1:
                 ejecutarModificacion = _a.sent();
                 if (ejecutarModificacion) {
@@ -78,7 +74,31 @@ document.getElementById('modificarLocalidad').addEventListener('click', function
         }
     });
 }); });
-function ActualizarTabla() {
+var formulario = document.getElementById('form-localidad');
+formulario.addEventListener('submit', function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    var formData;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                e.preventDefault();
+                formData = new FormData(formulario);
+                return [4 /*yield*/, AgregarLocalidad(formData)];
+            case 1:
+                if (!_a.sent()) return [3 /*break*/, 3];
+                return [4 /*yield*/, ActualizarTabla(null)];
+            case 2:
+                _a.sent();
+                formulario.reset();
+                return [3 /*break*/, 4];
+            case 3:
+                alert('Error al agregra la localidad');
+                _a.label = 4;
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+function ActualizarTabla(paginado) {
+    if (paginado === void 0) { paginado = null; }
     return __awaiter(this, void 0, void 0, function () {
         var tabla, localidades;
         return __generator(this, function (_a) {
@@ -86,10 +106,10 @@ function ActualizarTabla() {
                 case 0:
                     tabla = document.getElementById('tabla-localidad');
                     tabla.innerHTML = '';
-                    return [4 /*yield*/, _localidadServicio.Get()];
+                    return [4 /*yield*/, _localidadServicio.Get(paginado)];
                 case 1:
                     localidades = _a.sent();
-                    localidades.forEach(function (localidad) {
+                    localidades.localidades.forEach(function (localidad) {
                         var row = tabla.insertRow();
                         row.innerHTML = "\n        <td>" + localidad.descripcion + "</td>\n        <td>" + localidad.provincia + "</td>\n        <td></td>\n        ";
                         var btnModificar = document.createElement('button');
@@ -164,5 +184,36 @@ function ModificarLocalidad() {
             }
         });
     });
+}
+function AgregarLocalidad(formData) {
+    return __awaiter(this, void 0, void 0, function () {
+        var objetoLocalidad, agregar;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    objetoLocalidad = new ClaseLocalidad_1.Localidad();
+                    objetoLocalidad.provinciaId = formData.get('ProvinciaId');
+                    objetoLocalidad.descripcion = formData.get('Descripcion');
+                    return [4 /*yield*/, _localidadServicio.Add(objetoLocalidad)];
+                case 1:
+                    agregar = _a.sent();
+                    return [2 /*return*/, agregar];
+            }
+        });
+    });
+}
+function CrearBotonesPaginado(cantidadPaginas) {
+    var contenedor = document.querySelector('.paginado');
+    contenedor.innerHTML = '';
+    for (var i = 1; i <= cantidadPaginas; i++) {
+        var botonPaginado = document.createElement('button');
+        botonPaginado.classList.add('btn', 'btn-default', 'm-1');
+        botonPaginado.textContent = i.toString();
+        botonPaginado.value = i.toString();
+        botonPaginado.onclick = function (e) {
+            ActualizarTabla(parseInt(e.target.value));
+        };
+        contenedor.appendChild(botonPaginado);
+    }
 }
 //# sourceMappingURL=VistaLocalidad.js.map

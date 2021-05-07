@@ -6,18 +6,15 @@ const _localidadServicio = new LocalidadServicio();
 const _provinciaServicio = new ProvinciaServicio();
 let _localidadSeleccionada : number;
 
-document.addEventListener('DOMContentLoaded', () => {
-    async () => {
-        console.log(await _provinciaServicio.Get());
-    }
-    ActualizarTabla();
+document.addEventListener('DOMContentLoaded', async() => {
+    ActualizarTabla(null);
     CargarCmbProvincia('cmbProvincia');
+
+    let cantidadPaginas = await _localidadServicio.Get(null);
+    CrearBotonesPaginado(cantidadPaginas.paginas);
 })
 
 document.getElementById('modificarLocalidad').addEventListener('click', async() => {
-    
-    alert('A actualizar');
-
     let ejecutarModificacion = await ModificarLocalidad();
 
     if (ejecutarModificacion){
@@ -27,14 +24,28 @@ document.getElementById('modificarLocalidad').addEventListener('click', async() 
     }
 })
 
-async function ActualizarTabla()
+const formulario = document.getElementById('form-localidad') as HTMLFormElement;
+formulario.addEventListener('submit', async(e) => {
+    e.preventDefault();
+
+    let formData = new FormData(formulario);
+
+    if (await AgregarLocalidad(formData)){
+        await ActualizarTabla(null);
+        formulario.reset();
+    }else{
+        alert('Error al agregra la localidad');
+    }
+});
+
+async function ActualizarTabla(paginado : number = null)
 {
     const tabla = document.getElementById('tabla-localidad') as HTMLTableElement;
     tabla.innerHTML = '';
 
-    let localidades = await _localidadServicio.Get();
+    let localidades = await _localidadServicio.Get(paginado);
 
-    localidades.forEach((localidad) => {
+    localidades.localidades.forEach((localidad) => {
         let row = tabla.insertRow();
 
         row.innerHTML = `
@@ -92,4 +103,34 @@ async function ModificarLocalidad() : Promise<boolean> {
     objLocalidad.descripcion = (document.getElementById('txtNuevaDescripcion') as HTMLInputElement).value;
 
     return await _localidadServicio.Update(objLocalidad);
+}
+
+async function AgregarLocalidad(formData: FormData) : Promise<boolean>
+{
+    let objetoLocalidad = new Localidad();
+    objetoLocalidad.provinciaId = formData.get('ProvinciaId') as unknown as number;
+    objetoLocalidad.descripcion = formData.get('Descripcion') as string;
+
+    let agregar = await _localidadServicio.Add(objetoLocalidad);
+
+    return agregar;
+}
+
+function CrearBotonesPaginado(cantidadPaginas: number)
+{
+    const contenedor = document.querySelector('.paginado');
+    contenedor.innerHTML = '';
+
+    for (let i = 1; i <= cantidadPaginas; i++)
+    {
+        let botonPaginado = document.createElement('button');
+        botonPaginado.classList.add('btn', 'btn-default', 'm-1');
+        botonPaginado.textContent = i.toString();
+        botonPaginado.value = i.toString();
+        botonPaginado.onclick = (e) => {      
+            ActualizarTabla(parseInt((e.target as HTMLInputElement).value));
+        }
+
+        contenedor.appendChild(botonPaginado);
+    }
 }

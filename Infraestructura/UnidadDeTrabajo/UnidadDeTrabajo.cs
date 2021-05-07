@@ -5,6 +5,7 @@ namespace Infraestructura.UnidadDeTrabajo
     using Entidades;
     using Entidades.UnidadDeTrabajo;
     using Repositorio;
+    using Entidades.Repositorio;
     public class UnidadDeTrabajo : IUnidadDeTrabajo
     {
         private readonly DataContext _db;
@@ -18,6 +19,9 @@ namespace Infraestructura.UnidadDeTrabajo
         public IRepositorio<Provincia> RepositorioProvincia => _provinciaRepositorio ?? (_provinciaRepositorio = new Repositorio<Provincia>(_db)); 
         private IRepositorio<Localidad> _localidadRepositorio;
         public IRepositorio<Localidad> LocalidadRepositorio => _localidadRepositorio ?? (_localidadRepositorio = new Repositorio<Localidad>(_db));
+        private IRepositorioRecepcionista _repositorioRecepcionista;
+        public IRepositorioRecepcionista RecepcionistaRepositorio => _repositorioRecepcionista ?? (_repositorioRecepcionista = new RepositorioRecepcionista(_db));
+
         public async Task<bool> Commit() => await _db.SaveChangesAsync() > 0;
         public async Task RoolBack() => await _db.DisposeAsync();
     }

@@ -6,4 +6,10 @@ class Localidad
     public provincia : string;
 }
 
-export {Localidad};
+class LocalidadPaginada
+{
+    public localidades : Localidad[];
+    public paginas : number;
+}
+
+export {Localidad, LocalidadPaginada};
