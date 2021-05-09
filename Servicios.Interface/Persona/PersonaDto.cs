@@ -15,5 +15,6 @@ namespace Servicios.Interface.Persona
         public int Celular { get; set; }
         public int? Telefono { get; set; }
         public string ApyNom => $"{Apellido}, {Nombre}";
+        public string Localidad { get; set; }
     }
 }

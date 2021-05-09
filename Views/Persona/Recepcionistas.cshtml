@@ -1,0 +1,58 @@
+@model IEnumerable<Servicios.Interface.Persona.RecepcionistaDto>
+
+@{
+    ViewData["Title"] = "Recepcionistas";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="row">
+    <div class="col-12">
+        <div class="cotenedor bg-white">
+            <button type="button" class="btn btn-success" href="/Persona/NuevoRecepcionista">
+                NUEVO
+            </button>
+            <div class="contenedor-tabla">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Apellido y Nombre</th>
+                            <th>Dni</th>
+                            <th>Localidad</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ApyNom</td>
+                                <td>@item.Dni</td>
+                                <td>@item.Localidad</td>
+                                <td>
+                                    <button type="button" class="btn btn-default">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body{
+        background-color: rgba(222,222,222);
+    }
+
+    .contenedor{
+        margin:20px;
+    }
+
+    .contenedor-tabla{
+        margin-top: 15px;
+    }
+</style>

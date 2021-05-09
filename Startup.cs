@@ -18,10 +18,15 @@ namespace Sistema.Sanatorio
     using Hubs.App;
     using Entidades.Repositorio;
     using Servicios.Interface.Persona;
+    using Servicios.Implementacion.Persona;
+    using SimpleInjector;
     public class Startup
     {
+        private Container container = new Container();
         public Startup(IConfiguration configuration)
         {
+            container.Options.ResolveUnregisteredConcreteTypes = false;
+
             Configuration = configuration;
         }
 
@@ -31,22 +36,52 @@ namespace Sistema.Sanatorio
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddLogging();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            
+
+            services.AddSimpleInjector(container, options => {
+                options.AddAspNetCore()
+                .AddControllerActivation();
+
+                options.AddLogging();
+                options.AddLocalization();
+            });
+
             services.AddMvcCore();
             services.AddSignalR();
 
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Conexion")));
 
+            /*
             services.AddSingleton(typeof(IRepositorio<>), typeof(Repositorio<>));
             services.AddTransient<IRepositorioRecepcionista, RepositorioRecepcionista>();
             services.AddTransient<IUnidadDeTrabajo, UnidadDeTrabajo>();
             services.AddTransient<IProvinciaServicio, ProvinciaServicio>();
             services.AddTransient<ILocalidadServicio, LocalidadServicio>();
-           
+            services.AddTransient<IRecepcionistaServicio, RecepcionistaServicio>();
+            services.AddTransient<IPersonaServicio, PersonaServicio>();
+            */
+            InicialzarContenedorInjection();
+        }
+
+        private void InicialzarContenedorInjection()
+        {
+            container.Register(typeof(IRepositorio<>), typeof(Repositorio<>));
+            container.Register<IRepositorioRecepcionista, RepositorioRecepcionista>(Lifestyle.Transient);
+            container.Register<IUnidadDeTrabajo, UnidadDeTrabajo>(Lifestyle.Transient);
+            container.Register<IProvinciaServicio, ProvinciaServicio>(Lifestyle.Transient);
+            container.Register<ILocalidadServicio, LocalidadServicio>(Lifestyle.Transient);
+            container.Register<IRecepcionistaServicio, RecepcionistaServicio>(Lifestyle.Transient);
+            container.Register<IPersonaServicio, PersonaServicio>(Lifestyle.Transient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSimpleInjector(container);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -74,6 +109,8 @@ namespace Sistema.Sanatorio
                 endpoints.MapHub<LocalidadHub>("/hubLocalidad");
                 endpoints.MapHub<PruebaHub>("/hubPrueba");
             });
+
+            container.Verify();
         }
     }
 }

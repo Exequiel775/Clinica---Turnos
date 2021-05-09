@@ -92,3 +92,12 @@ C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\package.json
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\tsconfig.json
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Constantes\obj\Constantes.csproj.nuget.dgspec.json
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Constantes\obj\project.assets.json
+C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Persona\Recepcionistas.cshtml.g.cs
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\SimpleInjector.dll
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\SimpleInjector.Integration.AspNetCore.dll
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\SimpleInjector.Integration.GenericHost.dll
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\SimpleInjector.Integration.ServiceCollection.dll
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\SimpleInjector.Integration.AspNetCore.Mvc.Core.dll
+C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Sistema.Sanatorio.MvcApplicationPartsAssemblyInfo.cs

@@ -8,11 +8,13 @@ namespace Servicios.Implementacion.Persona
     public class PersonaServicio : IPersonaServicio
     {
         private Dictionary<Type, string> _diccionario;
+        private readonly Entidades.UnidadDeTrabajo.IUnidadDeTrabajo _unidadDeTrabajo;
 
-        public PersonaServicio()
+        public PersonaServicio(Entidades.UnidadDeTrabajo.IUnidadDeTrabajo unidadDeTrabajo)
         {
             _diccionario = new Dictionary<Type, string>();
             InicializadorDiccionario();
+            _unidadDeTrabajo = unidadDeTrabajo;
         }   
 
         public void AgregarOpcionDiccionario(Type tipo, string nombre)
@@ -59,13 +61,20 @@ namespace Servicios.Implementacion.Persona
 
         private Persona InstanciarEntidad(string tipoEntidad)
         {
+            try
+            {
             var tipoObjeto = Type.GetType(tipoEntidad);
 
             if (tipoObjeto == null) return null;
 
-            var entidad = Activator.CreateInstance(tipoObjeto) as Persona;
+            var entidad = Activator.CreateInstance(tipoObjeto, _unidadDeTrabajo) as Persona;
 
             return entidad;
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         private Persona InstanciarPersona(PersonaDto entidad)
