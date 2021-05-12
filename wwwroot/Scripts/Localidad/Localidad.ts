@@ -3,6 +3,21 @@ import {ILocalidadServicio} from './ILocalidad';
 
 class LocalidadServicio implements ILocalidadServicio
 {
+    GetByProvincia(provincia: number): Promise<Localidad[]> {
+        return fetch(`/Localidad/GetByProvincia?provincia=${provincia}`,{
+            method:'GET'
+        })
+        .then(response => {
+            if (!response.ok){
+                throw new Error(response.statusText);
+            }
+            
+            return response.json() as Promise<{ localidades : Localidad[] }>;
+        })
+        .then(json => {
+            return json.localidades;
+        })
+    }
     Add(localidad: Localidad): Promise<boolean> {
 
         return fetch('/Localidad/Add', {

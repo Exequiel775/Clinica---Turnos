@@ -1,0 +1,124 @@
+@{
+    ViewData["Title"] = "Nuevo Recepcionista";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alerta">
+            <strong>Registro exitoso!</strong> El recepcionista fue agregado exitosamente.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="col-12 col-sm-12 col-lg-7 col-xl-7 col-md-7">
+            <form action="/Persona/AgregarRecepcionista" method="POST" id="formulario">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <strong>Nombre</strong>
+                            <input type="text" class="form-control" name="Nombre" id="txtNombre">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <strong>Apellido</strong>
+                            <input type="text" class="form-control" name="Apellido" id="txtApellido">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <strong>DNI</strong>
+                            <input type="text" class="form-control" name="Dni" id="txtDni">
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <strong>Fecha Nacimiento</strong>
+                            <input type="date" class="form-control" name="FechaNacimiento" id="dtpFechaNacimiento">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <strong>Provincia</strong>
+                            <select class="form-control" id="cmbProvincia">
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <strong>Localidad</strong>
+                            <select class="form-control" name="LocalidadId" id="cmbLocalidad">
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <strong>Email <strong class="text-danger">(Opcional)</strong></strong>
+                    <input type="text" class="form-control" name="Email" id="txtEmail">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <strong>Celular</strong>
+                            <input type="text" class="form-control" name="Celular" id="txtCelular">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <strong>Telefono <strong class="text-danger">(Opcional)</strong></strong>
+                            <input type="text" class="form-control" name="Telefono" id="txtTelefono">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <strong>Turno</strong>
+                    @Html.DropDownList("TurnoRecepcionista",
+                    Html.GetEnumSelectList<Constantes.Clases.TurnoRecepcionista>(),
+                    htmlAttributes: new { @class = "form-control", @name = "TurnoRecepcionista", @id = "cmbTurno" })
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-dark" value="REGISTRAR">
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-sm-12 col-lg-5 col-xl-5 col-md-5">
+            <div class="columna-derecha">
+                <div class="mensaje">
+                    <h4 class="text-warning text-center">Nuevo Recepcionista</h4>
+                </div>
+                <hr>
+                <li class="text-white">Email: NO Requerido.</li>
+                <li class="text-white">Telefono: NO Requerido.</li>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .columna-derecha {
+        width: 100%;
+        background: #1f2235;
+        height: 100%;
+        margin-left: 20px;
+        margin-right: 20%;
+    }
+
+    .mensaje {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    #alerta {
+        display: none;
+    }
+</style>
+
+<script src="~/Scripts/RecepcionistaJs/main.js"></script>

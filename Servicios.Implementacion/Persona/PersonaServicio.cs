@@ -29,11 +29,11 @@ namespace Servicios.Implementacion.Persona
             return await persona.Add(entidad);
         }
 
-        public async Task<IEnumerable<PersonaDto>> Get(Type tipo)
+        public async Task<IEnumerable<PersonaDto>> Get(Type tipo, string cadenaBuscar)
         {
             var persona = InstanciarPersonaPorTipo(tipo);
 
-            return await persona.Get();
+            return await persona.Get(cadenaBuscar);
         }
 
         public async Task<PersonaDto> GetById(Type tipo, long id)

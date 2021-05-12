@@ -18,7 +18,7 @@ namespace Servicios.Implementacion.Persona
             return await Task.Run(() => false);
         }
 
-        public virtual async Task<IEnumerable<PersonaDto>> Get()
+        public virtual async Task<IEnumerable<PersonaDto>> Get(string cadenaBuscar)
         {
             return await Task.Run(() => new List<PersonaDto>());
         }

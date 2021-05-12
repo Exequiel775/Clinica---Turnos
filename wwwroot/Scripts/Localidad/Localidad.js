@@ -4,6 +4,20 @@ exports.LocalidadServicio = void 0;
 var LocalidadServicio = /** @class */ (function () {
     function LocalidadServicio() {
     }
+    LocalidadServicio.prototype.GetByProvincia = function (provincia) {
+        return fetch("/Localidad/GetByProvincia?provincia=" + provincia, {
+            method: 'GET'
+        })
+            .then(function (response) {
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return response.json();
+        })
+            .then(function (json) {
+            return json.localidades;
+        });
+    };
     LocalidadServicio.prototype.Add = function (localidad) {
         return fetch('/Localidad/Add', {
             method: 'POST',

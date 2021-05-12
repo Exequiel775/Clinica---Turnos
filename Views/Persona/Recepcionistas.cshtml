@@ -6,18 +6,64 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="row">
-    <div class="col-12">
-        <div class="cotenedor bg-white">
-            <button type="button" class="btn btn-success" href="/Persona/NuevoRecepcionista">
-                NUEVO
-            </button>
+<div class="container-lg">
+    <div class="header bg-dark">
+        <div class="header-msj text-white text-center">
+            <h2>RECEPCIONISTAS</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+    <div class="botones">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-md-6 col-auto mr-auto">
+                <button class="btn btn-success">
+                    NUEVO
+                </button>
+            </div>
+            <div class="col-12 col-sm-12 col-lg-auto col-xl-auto col-md-6 col-auto">
+                <div class="form-inline">
+                    <div class="form-group mb-2">
+                        <label for="input-buscar">Buscar</label>
+                        <div class="form-group mx-sm-3">
+                            <input type="text" id="input-buscar" value="@ViewBag.Cadena" class="form-control">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="btnBuscar">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+                <!--
+                    <div class="">
+                        <button type="button" class="btn btn-danger">
+                            Hola
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-lg-auto col-xl-auto col-md-6">
+                        <div class="form-inline">
+                            <div class="form-group mb-2">
+                                <label for="input-buscar">Buscar</label>
+                            <div class="form-group mx-sm-3">
+                                <input type="text" id="input-buscar" class="form-control">
+                            </div>
+                            <button type="button" class="btn btn-primary">
+                                Buscar
+                            </button>
+                        </div>        
+                </div>-->
+            </div>
+        </div>
+        <div class="table-responsive">
             <div class="contenedor-tabla">
-                <table class="table table-sm">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Apellido y Nombre</th>
-                            <th>Dni</th>
+                            <th>DNI</th>
                             <th>Localidad</th>
                             <th>Acción</th>
                         </tr>
@@ -30,29 +76,62 @@
                                 <td>@item.Dni</td>
                                 <td>@item.Localidad</td>
                                 <td>
-                                    <button type="button" class="btn btn-default">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    <button class="btn btn-primary btnModificar" value="@item.Id">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path
+                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                            <path fill-rule="evenodd"
+                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                        </svg>
                                     </button>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
+                <hr class="bg-dark">
+                <div class="d-flex justify-content-center">
+                    <div class="form-inline">
+                        @for (int i = 1; i <= (int)ViewBag.CantidadBotones; i++)
+                        {
+                            <button type="button" class="btn border ml-2 paginado" value="@i">
+                                @i
+                            </button>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-    body{
-        background-color: rgba(222,222,222);
+
+   <style>
+    .header {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        width: 100%;
     }
 
-    .contenedor{
-        margin:20px;
-    }
-
-    .contenedor-tabla{
+    .botones {
         margin-top: 15px;
+        margin-bottom: 15px;
     }
-</style>
+   </style>
+
+   <script>
+       document.getElementById('btnBuscar').addEventListener('click', () => {
+           let busqueda = document.getElementById('input-buscar').value;
+
+            window.location.href = `/Persona/Recepcionistas?buscar=${busqueda}`;   
+        })
+
+        const botonesPaginado = document.querySelectorAll('.paginado');
+        botonesPaginado.forEach((boton) => {
+            boton.addEventListener('click', (e) => {
+                let busqueda = document.getElementById('input-buscar').value;
+                window.location.href= `/Persona/Recepcionistas?buscar=${busqueda}&index=${e.target.value}`;
+            })
+        });
+   </script>
