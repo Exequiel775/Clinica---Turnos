@@ -2,6 +2,7 @@ class Persona
 {
     public id : number;
     public localidadId : number;
+    public provinciaId : number;
     public nombre : string;
     public apellido : string;
     public dni : number;
@@ -12,6 +13,7 @@ class Persona
     // SOLO LECTURA
     public apyNom : string;
     public localidad : string;
+    public fechaStr : string;
 }
 
 export {Persona};

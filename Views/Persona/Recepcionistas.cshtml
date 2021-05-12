@@ -5,6 +5,8 @@
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
 
 <div class="container-lg">
     <div class="header bg-dark">
@@ -68,15 +70,12 @@
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var item in Model)
+                    <tbody id="tabla-recepcionistas">
+                        <!--
                         {
                             <tr>
-                                <td>@item.ApyNom</td>
-                                <td>@item.Dni</td>
-                                <td>@item.Localidad</td>
                                 <td>
-                                    <button class="btn btn-primary btnModificar" value="@item.Id">
+                                    <button class="btn btn-primary btnModificar" value="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-pencil-square" viewBox="0 0 16 16">
                                             <path
@@ -87,23 +86,129 @@
                                     </button>
                                 </td>
                             </tr>
-                        }
+                        }-->
                     </tbody>
                 </table>
                 <hr class="bg-dark">
                 <div class="d-flex justify-content-center">
+                    <!--
                     <div class="form-inline">
-                        @for (int i = 1; i <= (int)ViewBag.CantidadBotones; i++)
-                        {
-                            <button type="button" class="btn border ml-2 paginado" value="@i">
-                                @i
+                            <button type="button" class="btn border ml-2 paginado" value="">
+                                
                             </button>
-                        }
-                    </div>
+                        
+                    </div>-->
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+        <div class="modal fade" id="modalRecepcionista" tabindex="-1" aria-labelledby="modalRecepcionistaLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <i style="margin-top:1px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="22" fill="currentColor"
+                                class="bi bi-person" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                            </svg>
+                        </i>
+                        <h5 class="pl-2">Gonzalez, Rodrigo Exequiel</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="datos-recepcionista">
+                                <div class="form-group">
+                                    <h5>DATOS DEL RECEPCIONISTA</h5>
+                                    <hr class="bg-secondary">
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-lg-4 col-xl-4 col-md-4">
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control" name="Nombre" id="nombre">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-4 col-xl-4 col-md-4">
+                                        <div class="form-group">
+                                            <label>Apellido</label>
+                                            <input type="text" class="form-control" name="Apellido" id="apellido">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-4 col-xl-4 col-md-4">
+                                        <div class="form-group">
+                                            <label>DNI</label>
+                                            <input type="number" class="form-control" name="Dni" id="dni">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>Fecha Nacimiento</label>
+                                            <input type="date" class="form-control" name="FechaNacimiento" id="fechaNacimiento">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" name="Email" id="email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-md-6">
+                                        <label>Celular</label>
+                                        <input type="text" class="form-control" name="Celular" id="celular">
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-md-6">
+                                        <label>Telefono</label>
+                                        <input type="text" class="form-control" name="Telefono" id="telefono">
+                                    </div>
+                                </div>
+                                <div class="mt-2 form-group">
+                                    <h5>LOCALIDAD</h5>
+                                    <hr class="bg-secondary">
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <label>Provincia</label>
+                                        <select class="form-control" id="cmbProvincia">                                            
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <label>Localidad</label>
+                                        <select class="form-control" id="cmbLocalidad" name="Localidad">
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mt-2 form-group">
+                                    <h5>TURNO</h5>
+                                    <hr class="bg-secondary">
+                                </div>
+                                <div class="form-group">
+                                    <label>Turno</label>
+                                    @Html.DropDownList("TurnoRecepcionista", 
+                                    Html.GetEnumSelectList<Constantes.Clases.TurnoRecepcionista>(),
+                                    htmlAttributes: new { @class = "form-control", @id = "cmbTurno" })
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Modificar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 
@@ -118,8 +223,13 @@
         margin-top: 15px;
         margin-bottom: 15px;
     }
-   </style>
 
+      .datos-recepcionista label {
+                font-family: 'Barlow', sans-serif;
+            }
+   </style>
+   <script src="~/Scripts/VistaRecepcionistaJs/main.js"></script>
+   <!--
    <script>
        document.getElementById('btnBuscar').addEventListener('click', () => {
            let busqueda = document.getElementById('input-buscar').value;
@@ -134,4 +244,4 @@
                 window.location.href= `/Persona/Recepcionistas?buscar=${busqueda}&index=${e.target.value}`;
             })
         });
-   </script>
+   </script>-->

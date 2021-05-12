@@ -23,7 +23,18 @@ var RecepcionistaServicio = /** @class */ (function () {
         });
     };
     RecepcionistaServicio.prototype.Get = function () {
-        throw new Error('Method not implemented.');
+        return fetch('/Persona/ListadoRecepcionistas', {
+            method: 'GET'
+        })
+            .then(function (response) {
+            if (!response.ok) {
+                console.log("Error: " + response.statusText);
+            }
+            return response.json();
+        })
+            .then(function (json) {
+            return json.recepcionistas;
+        });
     };
     RecepcionistaServicio.prototype.GetById = function (idRecepcionista) {
         throw new Error('Method not implemented.');

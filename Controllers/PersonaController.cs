@@ -16,8 +16,9 @@ namespace Sistema.Sanatorio.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Recepcionistas(string buscar = null, int? index = null)
+        public IActionResult Recepcionistas(string buscar = null, int? index = null)
         {
+            /*
             var cadenaBuscar = buscar ?? string.Empty;
             var recepcionistasSinFiltrar = (List<RecepcionistaDto>)await _recepcionistaServicio.Get(typeof(RecepcionistaDto), string.Empty);
             var recepcionistasFiltrados = (List<RecepcionistaDto>)await _recepcionistaServicio.Get(typeof(RecepcionistaDto), cadenaBuscar);
@@ -33,8 +34,27 @@ namespace Sistema.Sanatorio.Controllers
             // VISTA
             ViewBag.Cadena = cadenaBuscar;
             ViewBag.CantidadBotones = totalPaginas;
+            */
+            return View();
+        }
+        [HttpGet]
+        public async Task<JsonResult> ListadoRecepcionistas()
+        {
+            /*
+            var cadenaBuscar = buscar ?? string.Empty;
+            var recepcionistasSinFiltrar = (List<RecepcionistaDto>)await _recepcionistaServicio.Get(typeof(RecepcionistaDto), string.Empty);
+            var recepcionistasFiltrados = (List<RecepcionistaDto>)await _recepcionistaServicio.Get(typeof(RecepcionistaDto), cadenaBuscar);
 
-            return View(datosListos.ToList());
+            // PAGINADO
+            var _paginado = index ?? 1;
+            decimal cantidadRegistros = recepcionistasSinFiltrar.Count();
+            int totalPaginas = Convert.ToInt32(Math.Ceiling(cantidadRegistros / _cantidadMostrar));
+
+            // FILTRO
+            var datosListos = recepcionistasFiltrados.Skip((_paginado - 1) * _cantidadMostrar).Take(_cantidadMostrar);
+            */
+            var listadoRecepcionistas = (List<RecepcionistaDto>) await _recepcionistaServicio.Get(typeof(RecepcionistaDto), string.Empty);
+            return Json(new { recepcionistas = listadoRecepcionistas});
         }
 
         [HttpGet]

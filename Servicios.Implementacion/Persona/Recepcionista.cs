@@ -60,6 +60,7 @@ namespace Servicios.Implementacion.Persona
                 {
                     Id = x.Id,
                     LocalidadId = x.LocalidadId,
+                    ProvinciaId = x.Localidad.ProvinciaId,
                     Localidad = x.Localidad.Descripcion,
                     Nombre = x.Nombre,
                     Apellido = x.Apellido,
@@ -67,6 +68,7 @@ namespace Servicios.Implementacion.Persona
                     FechaNacimiento = x.FechaNacimiento,
                     Email = x.Email,
                     Celular = x.Celular,
+                    TurnoRecepcionista = x .TurnoRecepcionista,
                     Telefono = x.Telefono
                 }).ToList();
             }

@@ -8,6 +8,7 @@ interface ILocalidadServicio
     GetById(id : number) : Promise<Localidad>;
     Update(localidadModificar: Localidad) : Promise<boolean>;
     GetByProvincia(provincia : number) : Promise<Localidad[]>;
+    GetSinPaginado() : Promise<Localidad[]>;
 }
 
 export { ILocalidadServicio };

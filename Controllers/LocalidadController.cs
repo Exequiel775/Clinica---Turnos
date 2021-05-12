@@ -41,6 +41,13 @@ namespace Sistema.Sanatorio.Controllers
         }
 
         [HttpGet]
+        public async Task<JsonResult> GetSinPaginar()
+        {
+            var listaLocalidades = await _localidadServicio.Get();
+            return Json(new { localidades = listaLocalidades });
+        }
+
+        [HttpGet]
         public async Task<JsonResult> GetById(long loc)
         {
             return Json(new { localidad = await _localidadServicio.GetById(loc) } );

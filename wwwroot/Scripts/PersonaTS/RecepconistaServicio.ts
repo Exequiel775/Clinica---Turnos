@@ -23,7 +23,19 @@ class RecepcionistaServicio implements IRecepcionistaServicio
         });
     }
     Get(): Promise<Recepcionista[]> {
-        throw new Error('Method not implemented.');
+        return fetch('/Persona/ListadoRecepcionistas', {
+            method:'GET'
+        })
+        .then(response => {
+            if (!response.ok){
+                console.log(`Error: ${response.statusText}`);
+            }
+
+            return response.json() as Promise<{ recepcionistas: Recepcionista[] }>;
+        })
+        .then(json => {
+            return json.recepcionistas;
+        })
     }
     GetById(idRecepcionista: number): Promise<Recepcionista> {
         throw new Error('Method not implemented.');

@@ -3,6 +3,22 @@ import {ILocalidadServicio} from './ILocalidad';
 
 class LocalidadServicio implements ILocalidadServicio
 {
+    GetSinPaginado(): Promise<Localidad[]> {
+        return fetch('/Localidad/GetSinPaginar', {
+            method:'GET'
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.log(`Error Localidad: ${response.statusText}`);
+            }
+
+            return response.json() as Promise<{localidades : Localidad[]}>;
+        })
+        .then(json => {
+            return json.localidades;
+        })
+    }
+
     GetByProvincia(provincia: number): Promise<Localidad[]> {
         return fetch(`/Localidad/GetByProvincia?provincia=${provincia}`,{
             method:'GET'
