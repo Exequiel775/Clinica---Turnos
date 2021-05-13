@@ -36,33 +36,86 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var Recepcionista_1 = require("./Recepcionista");
 var RecepconistaServicio_1 = require("./RecepconistaServicio");
 var Localidad_1 = require("../Localidad/Localidad");
 var Provincia_1 = require("../ProvinciaTS/Provincia");
 var _recepcionistaServicio = new RecepconistaServicio_1.RecepcionistaServicio();
 var _localidadServicio = new Localidad_1.LocalidadServicio();
 var _provinciaServicio = new Provincia_1.ProvinciaServicio();
+var _entidadId;
 document.addEventListener('DOMContentLoaded', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, CargarTablaRecepcionistas()];
+            case 0: return [4 /*yield*/, CargarTablaRecepcionistas(null, null)];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
         }
     });
 }); });
-function CargarTablaRecepcionistas() {
+var formularioModificar = document.getElementById('formularioModificar');
+formularioModificar.addEventListener('submit', function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    var formData;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                e.preventDefault();
+                formData = new FormData(formularioModificar);
+                return [4 /*yield*/, ModificarRecepcionista(formData)];
+            case 1:
+                if (_a.sent()) {
+                    alert('Recepcionista Modificado');
+                    CargarTablaRecepcionistas(null, null);
+                }
+                else {
+                    alert('Error al modificar al recepcionista');
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
+document.getElementById('btnBuscar').addEventListener('click', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var filtro;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                filtro = document.getElementById('input-buscar').value;
+                return [4 /*yield*/, CargarTablaRecepcionistas(filtro, null)];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+var inputFiltro = document.getElementById('input-buscar');
+inputFiltro.addEventListener('keyup', function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    var tecla;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                tecla = e.keyCode || e.which;
+                if (!(tecla == 13)) return [3 /*break*/, 2];
+                return [4 /*yield*/, CargarTablaRecepcionistas(inputFiltro.value, null)];
+            case 1:
+                _a.sent();
+                _a.label = 2;
+            case 2: return [2 /*return*/];
+        }
+    });
+}); });
+function CargarTablaRecepcionistas(cadenaBuscar, pagina) {
+    if (cadenaBuscar === void 0) { cadenaBuscar = null; }
     return __awaiter(this, void 0, void 0, function () {
         var recepcionistas, tabla;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, _recepcionistaServicio.Get()];
+                case 0: return [4 /*yield*/, _recepcionistaServicio.RecepcionistasPaginados(cadenaBuscar, pagina)];
                 case 1:
                     recepcionistas = _a.sent();
                     tabla = document.getElementById('tabla-recepcionistas');
                     tabla.innerHTML = '';
-                    recepcionistas.forEach(function (recepcionista) {
+                    recepcionistas.recepcionistas.forEach(function (recepcionista) {
                         var row = tabla.insertRow();
                         row.innerHTML = "\n        <td>" + recepcionista.apyNom + "</td>\n        <td>" + recepcionista.dni + "</td>\n        <td>" + recepcionista.localidad + "</td>\n        <td></td>\n        ";
                         var btnModificar = document.createElement('button');
@@ -71,10 +124,12 @@ function CargarTablaRecepcionistas() {
                         btnModificar.dataset.toggle = 'modal';
                         btnModificar.dataset.target = '#modalRecepcionista';
                         btnModificar.onclick = function () {
+                            _entidadId = recepcionista.id;
                             CargarDatosRecepcionista(recepcionista);
                         };
                         row.children[3].appendChild(btnModificar);
                     });
+                    ActualizarBotonesPaginado(recepcionistas.paginas);
                     return [2 /*return*/];
             }
         });
@@ -100,6 +155,7 @@ function CargarDatosRecepcionista(recepcionista) {
                     document.getElementById('cmbLocalidad').value = recepcionista.localidadId.toString();
                     document.getElementById('cmbTurno').value = recepcionista.turnoRecepcionista.toString();
                     document.getElementById('cmbProvincia').value = recepcionista.provinciaId.toString();
+                    document.getElementById('modal-nombre').textContent = recepcionista.apyNom;
                     return [2 /*return*/];
             }
         });
@@ -145,6 +201,53 @@ function CargarProvincias() {
                     });
                     return [2 /*return*/];
             }
+        });
+    });
+}
+function ModificarRecepcionista(formData) {
+    return __awaiter(this, void 0, void 0, function () {
+        var objetoRecepcionista, ejecutarModificar;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    objetoRecepcionista = new Recepcionista_1.Recepcionista();
+                    objetoRecepcionista.id = _entidadId;
+                    objetoRecepcionista.nombre = formData.get('Nombre').toString();
+                    objetoRecepcionista.apellido = formData.get('Apellido').toString();
+                    objetoRecepcionista.dni = parseInt(formData.get('Dni').toString());
+                    objetoRecepcionista.localidadId = parseInt(formData.get('Localidad').toString());
+                    objetoRecepcionista.celular = parseInt(formData.get('Celular').toString());
+                    objetoRecepcionista.telefono = parseInt(formData.get('Telefono').toString());
+                    objetoRecepcionista.turnoRecepcionista = parseInt(formData.get('TurnoRecepcionista').toString());
+                    objetoRecepcionista.email = formData.get('Email').toString();
+                    objetoRecepcionista.fechaNacimiento = formData.get('FechaNacimiento');
+                    return [4 /*yield*/, _recepcionistaServicio.Update(objetoRecepcionista)];
+                case 1:
+                    ejecutarModificar = _a.sent();
+                    return [2 /*return*/, ejecutarModificar];
+            }
+        });
+    });
+}
+function ActualizarBotonesPaginado(cantidadPaginas) {
+    return __awaiter(this, void 0, void 0, function () {
+        var contenedor, _loop_1, i;
+        return __generator(this, function (_a) {
+            contenedor = document.querySelector('.contenedor-paginado');
+            contenedor.innerHTML = '';
+            _loop_1 = function (i) {
+                var btnPaginado = document.createElement('button');
+                btnPaginado.classList.add('btn', 'border', 'ml-2');
+                btnPaginado.textContent = i.toString();
+                btnPaginado.onclick = function () {
+                    CargarTablaRecepcionistas(null, i);
+                };
+                contenedor.appendChild(btnPaginado);
+            };
+            for (i = 1; i <= cantidadPaginas; i++) {
+                _loop_1(i);
+            }
+            return [2 /*return*/];
         });
     });
 }

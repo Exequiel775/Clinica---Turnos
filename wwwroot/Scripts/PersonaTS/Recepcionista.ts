@@ -12,4 +12,10 @@ class Recepcionista extends Persona
     public turnoRecepcionista : TurnoRecepcionista;
 }
 
-export {Recepcionista, TurnoRecepcionista};
+class RecepcionistasPaginados
+{
+    recepcionistas: Recepcionista[];
+    paginas : number;
+}
+
+export {Recepcionista, TurnoRecepcionista, RecepcionistasPaginados};

@@ -9,18 +9,50 @@ import { ProvinciaServicio } from '../ProvinciaTS/Provincia';
 const _recepcionistaServicio : IRecepcionistaServicio = new RecepcionistaServicio();
 const _localidadServicio : ILocalidadServicio = new LocalidadServicio();
 const _provinciaServicio : IProvinciaServicio = new ProvinciaServicio();
+let _entidadId : number;
 
 document.addEventListener('DOMContentLoaded', async() => {
-    await CargarTablaRecepcionistas();
+    await CargarTablaRecepcionistas(null, null);
 })
 
-async function CargarTablaRecepcionistas() : Promise<void>
+const formularioModificar = document.getElementById('formularioModificar') as HTMLFormElement;
+formularioModificar.addEventListener('submit', async(e) => {
+    e.preventDefault();
+
+    const formData = new FormData(formularioModificar);
+
+    if (await ModificarRecepcionista(formData)) {
+        alert('Recepcionista Modificado');
+        CargarTablaRecepcionistas(null, null);
+    }
+    else
+    {
+        alert('Error al modificar al recepcionista');
+    }
+});
+
+document.getElementById('btnBuscar').addEventListener('click', async() => {
+    let filtro = (document.getElementById('input-buscar') as HTMLInputElement).value;
+
+    await CargarTablaRecepcionistas(filtro, null);
+});
+
+const inputFiltro = document.getElementById('input-buscar') as HTMLInputElement;
+inputFiltro.addEventListener('keyup', async(e) => {
+    let tecla = e.keyCode || e.which;
+
+    if (tecla == 13) {
+        await CargarTablaRecepcionistas(inputFiltro.value, null);
+    }
+})
+
+async function CargarTablaRecepcionistas(cadenaBuscar: string = null, pagina: number) : Promise<void>
 {
-    let recepcionistas = await _recepcionistaServicio.Get();
+    let recepcionistas = await _recepcionistaServicio.RecepcionistasPaginados(cadenaBuscar, pagina);
     const tabla = document.getElementById('tabla-recepcionistas') as HTMLTableElement;
     tabla.innerHTML = '';
 
-    recepcionistas.forEach((recepcionista) => {
+    recepcionistas.recepcionistas.forEach((recepcionista) => {
         let row = tabla.insertRow();
 
         row.innerHTML = `
@@ -36,11 +68,14 @@ async function CargarTablaRecepcionistas() : Promise<void>
         btnModificar.dataset.toggle = 'modal';
         btnModificar.dataset.target = '#modalRecepcionista';
         btnModificar.onclick = () => {
+            _entidadId = recepcionista.id;
             CargarDatosRecepcionista(recepcionista);
         }
 
         row.children[3].appendChild(btnModificar);
     });
+
+    ActualizarBotonesPaginado(recepcionistas.paginas);
 }
 
 async function CargarDatosRecepcionista(recepcionista: Recepcionista)
@@ -58,6 +93,7 @@ async function CargarDatosRecepcionista(recepcionista: Recepcionista)
     (document.getElementById('cmbLocalidad') as HTMLSelectElement).value = recepcionista.localidadId.toString();
     (document.getElementById('cmbTurno') as HTMLSelectElement).value = recepcionista.turnoRecepcionista.toString();
     (document.getElementById('cmbProvincia') as HTMLSelectElement).value = recepcionista.provinciaId.toString();
+    (document.getElementById('modal-nombre') as HTMLElement).textContent = recepcionista.apyNom;
 }
 
 async function CargarLocalidades() : Promise<void>
@@ -92,4 +128,41 @@ async function CargarProvincias() : Promise<void>
 
         select.add(option);
     })
+}
+
+async function ModificarRecepcionista(formData: FormData) : Promise<boolean>
+{
+    let objetoRecepcionista = new Recepcionista();
+    objetoRecepcionista.id = _entidadId;
+    objetoRecepcionista.nombre = formData.get('Nombre').toString();
+    objetoRecepcionista.apellido = formData.get('Apellido').toString();
+    objetoRecepcionista.dni = parseInt(formData.get('Dni').toString());
+    objetoRecepcionista.localidadId = parseInt(formData.get('Localidad').toString());
+    objetoRecepcionista.celular = parseInt(formData.get('Celular').toString());
+    objetoRecepcionista.telefono = parseInt(formData.get('Telefono').toString());
+    objetoRecepcionista.turnoRecepcionista = parseInt(formData.get('TurnoRecepcionista').toString());
+    objetoRecepcionista.email = formData.get('Email').toString();
+    objetoRecepcionista.fechaNacimiento = formData.get('FechaNacimiento') as unknown as Date;
+
+    let ejecutarModificar = await _recepcionistaServicio.Update(objetoRecepcionista);
+
+    return ejecutarModificar;
+}
+
+async function ActualizarBotonesPaginado(cantidadPaginas : number) : Promise<void>
+{
+    const contenedor = document.querySelector('.contenedor-paginado');
+    contenedor.innerHTML = '';
+
+    for(let i = 1; i <= cantidadPaginas; i++)
+    {
+        let btnPaginado = document.createElement('button');
+        btnPaginado.classList.add('btn', 'border', 'ml-2');
+        btnPaginado.textContent = i.toString();
+        btnPaginado.onclick = () => {
+            CargarTablaRecepcionistas(null, i);
+        }
+
+        contenedor.appendChild(btnPaginado);
+    }
 }

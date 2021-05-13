@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TurnoRecepcionista = exports.Recepcionista = void 0;
+exports.RecepcionistasPaginados = exports.TurnoRecepcionista = exports.Recepcionista = void 0;
 var Persona_1 = require("../PersonaTS/Persona");
 var TurnoRecepcionista;
 (function (TurnoRecepcionista) {
@@ -32,4 +32,10 @@ var Recepcionista = /** @class */ (function (_super) {
     return Recepcionista;
 }(Persona_1.Persona));
 exports.Recepcionista = Recepcionista;
+var RecepcionistasPaginados = /** @class */ (function () {
+    function RecepcionistasPaginados() {
+    }
+    return RecepcionistasPaginados;
+}());
+exports.RecepcionistasPaginados = RecepcionistasPaginados;
 //# sourceMappingURL=Recepcionista.js.map

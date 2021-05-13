@@ -95,5 +95,37 @@ namespace Servicios.Implementacion.Persona
                 Email = recepcionistaBuscar.Email
             };
         }
+
+        public async override Task<bool> Update(PersonaDto persona)
+        {
+            try
+            {
+                var recepcionista = (RecepcionistaDto)persona;
+
+                var entidadRecepcionista = new Entidades.Recepcionista
+                {
+                    Id = recepcionista.Id,
+                    LocalidadId = recepcionista.LocalidadId,
+                    Nombre = recepcionista.Nombre,
+                    Apellido = recepcionista.Apellido,
+                    Dni = recepcionista.Dni,
+                    FechaNacimiento = recepcionista.FechaNacimiento,
+                    Email = recepcionista.Email,
+                    Celular = recepcionista.Celular,
+                    Telefono = recepcionista.Telefono,
+                    TurnoRecepcionista = recepcionista.TurnoRecepcionista
+                };
+
+                await _unidadDeTrabajo.RecepcionistaRepositorio.Update(entidadRecepcionista);
+
+                await _unidadDeTrabajo.Commit();
+
+                return true;
+            }
+            catch
+            {
+                return await Task.Run(() => false);
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace Sistema.Sanatorio.Controllers
     using System.Linq;
     using System.Collections.Generic;
     using System;
+    using Models;
     public class PersonaController : Controller
     {
         private readonly IRecepcionistaServicio _recepcionistaServicio;
@@ -37,13 +38,16 @@ namespace Sistema.Sanatorio.Controllers
             */
             return View();
         }
+
         [HttpGet]
-        public async Task<JsonResult> ListadoRecepcionistas()
+        public async Task<JsonResult> ListadoRecepcionistasPaginados(string buscar = null, int? index = null)
         {
-            /*
+            
             var cadenaBuscar = buscar ?? string.Empty;
+
             var recepcionistasSinFiltrar = (List<RecepcionistaDto>)await _recepcionistaServicio.Get(typeof(RecepcionistaDto), string.Empty);
-            var recepcionistasFiltrados = (List<RecepcionistaDto>)await _recepcionistaServicio.Get(typeof(RecepcionistaDto), cadenaBuscar);
+            var recepcionistasFiltrados = (List<RecepcionistaDto>)await _recepcionistaServicio.Get(typeof(RecepcionistaDto), 
+            cadenaBuscar == "null" ? string.Empty : cadenaBuscar);
 
             // PAGINADO
             var _paginado = index ?? 1;
@@ -52,9 +56,25 @@ namespace Sistema.Sanatorio.Controllers
 
             // FILTRO
             var datosListos = recepcionistasFiltrados.Skip((_paginado - 1) * _cantidadMostrar).Take(_cantidadMostrar);
-            */
-            var listadoRecepcionistas = (List<RecepcionistaDto>) await _recepcionistaServicio.Get(typeof(RecepcionistaDto), string.Empty);
-            return Json(new { recepcionistas = listadoRecepcionistas});
+            
+            //var listadoRecepcionistas = (List<RecepcionistaDto>)await _recepcionistaServicio.Get(typeof(RecepcionistaDto), string.Empty);
+
+            var modeloRecepcionista = new JsonRecepcionistas
+            {
+                Recepcionistas = datosListos,
+                Paginas = totalPaginas
+            };
+
+            return Json(new 
+            { 
+                recepcionistas = modeloRecepcionista
+             });
+        }
+        [HttpGet]
+        public async Task<JsonResult> ListadoRecepcionistas()
+        {
+            var Listadorecepcionistas = await _recepcionistaServicio.Get(typeof(RecepcionistaDto), string.Empty);
+            return Json(new { recepcionistas = Listadorecepcionistas});
         }
 
         [HttpGet]
@@ -73,7 +93,21 @@ namespace Sistema.Sanatorio.Controllers
                 return Json(new { respuesta = agregarRecepcionista });
             }
 
-            return Json(new{ respuesta = false });
+            return Json(new { respuesta = false });
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ModificarRecepcionista([FromBody] RecepcionistaDto recepcionista)
+        {
+            try
+            {
+                var modificarRecepcionista = await _recepcionistaServicio.Update(recepcionista);
+                return Json(new { respuesta = modificarRecepcionista } );
+            }
+            catch
+            {
+                return Json(new { respuesta = false });
+            }
         }
     }
 }

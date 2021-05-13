@@ -49,7 +49,7 @@ async function AgregarRecepcionista(formData: FormData) : Promise<boolean>
     objetoRecepcionista.dni = parseInt(formData.get('Dni').toString());
     objetoRecepcionista.localidadId = parseInt(formData.get('LocalidadId').toString());
     objetoRecepcionista.celular = parseInt(formData.get('Celular').toString());
-    objetoRecepcionista.telefono = parseInt(formData.get('Celular').toString());
+    objetoRecepcionista.telefono = parseInt(formData.get('Telefono').toString());
     objetoRecepcionista.turnoRecepcionista = parseInt(formData.get('TurnoRecepcionista').toString());
     objetoRecepcionista.email = formData.get('Email').toString();
     objetoRecepcionista.fechaNacimiento = formData.get('FechaNacimiento') as unknown as Date;
