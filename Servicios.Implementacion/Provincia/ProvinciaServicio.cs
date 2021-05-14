@@ -1,7 +1,6 @@
 namespace Servicios.Implementacion.Provincia
 {
     using Servicios.Interface.Provincia;
-    using System.Threading.Tasks;
     using System.Collections.Generic;
     using Entidades.UnidadDeTrabajo;
     using Entidad.Base.Repositorio;
@@ -13,7 +12,7 @@ namespace Servicios.Implementacion.Provincia
         {
             _unidadDeTrabajo = unidadDeTrabajo;
         } 
-        public async Task<bool> Add(ProvinciaDto provincia)
+        public bool Add(ProvinciaDto provincia)
         {
             try
             {
@@ -22,19 +21,19 @@ namespace Servicios.Implementacion.Provincia
                     Descripcion = provincia.Descripcion
                 };
 
-                await _unidadDeTrabajo.RepositorioProvincia.Add(entidadProvincia);
+                _unidadDeTrabajo.RepositorioProvincia.AddNoAsync(entidadProvincia);
 
-                await _unidadDeTrabajo.Commit();
+                _unidadDeTrabajo.CommitNoAsync();
 
                 return true;
             }
             catch
             {
-                return await Task.Run(()  => false);
+                return false;
             }
         }
 
-        public async Task<bool> Update(ProvinciaDto provinciaModificar)
+        public bool Update(ProvinciaDto provinciaModificar)
         {
             try
             {
@@ -44,32 +43,32 @@ namespace Servicios.Implementacion.Provincia
                     Descripcion = provinciaModificar.Descripcion
                 };
 
-                await _unidadDeTrabajo.RepositorioProvincia.Update(entidadModificar);
+                _unidadDeTrabajo.RepositorioProvincia.UpdateNoAsync(entidadModificar);
 
-                await _unidadDeTrabajo.Commit();
+                _unidadDeTrabajo.CommitNoAsync();
 
                 return true;
             }
             catch
             {
-                return await Task.Run(() => false);
+                return false;
             }
         }
 
-        public async Task<IEnumerable<ProvinciaDto>> Get()
+        public IEnumerable<ProvinciaDto> Get()
         {
-            var provincias = await _unidadDeTrabajo.RepositorioProvincia.Get();
+            var provincias = _unidadDeTrabajo.RepositorioProvincia.GetNoAsync();
 
             return provincias.Select(x => new ProvinciaDto
             {
                 Id = x.Id,
                 Descripcion = x.Descripcion
-            }).ToList();
+            });
         }
 
-        public async Task<ProvinciaDto> GetById(long id)
+        public ProvinciaDto GetById(long id)
         {
-            var provinciaSeleccionada = await _unidadDeTrabajo.RepositorioProvincia.GetById(id);
+            var provinciaSeleccionada = _unidadDeTrabajo.RepositorioProvincia.GetByIdNoAsync(id);
 
             return new ProvinciaDto
             {

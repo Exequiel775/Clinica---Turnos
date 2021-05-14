@@ -21,8 +21,13 @@ namespace Infraestructura.UnidadDeTrabajo
         public IRepositorio<Localidad> LocalidadRepositorio => _localidadRepositorio ?? (_localidadRepositorio = new Repositorio<Localidad>(_db));
         private IRepositorioRecepcionista _repositorioRecepcionista;
         public IRepositorioRecepcionista RecepcionistaRepositorio => _repositorioRecepcionista ?? (_repositorioRecepcionista = new RepositorioRecepcionista(_db));
+        private IRepositorio<Especialidad> _repositorioEspecialidad;
+        public IRepositorio<Especialidad> EspecialidadRepositorio => _repositorioEspecialidad ?? (_repositorioEspecialidad = new Repositorio<Especialidad>(_db));
+        private IRepositorioMedico _repositorioMedico;
+        public IRepositorioMedico MedicoRepositorio => _repositorioMedico ?? (_repositorioMedico = new RepositorioMedico(_db));
 
-        public async Task<bool> Commit() => await _db.SaveChangesAsync() > 0;
+        public async Task<bool> CommitAsync() => await _db.SaveChangesAsync() > 0;
         public async Task RoolBack() => await _db.DisposeAsync();
+        public void CommitNoAsync() => _db.SaveChanges();
     }
 }

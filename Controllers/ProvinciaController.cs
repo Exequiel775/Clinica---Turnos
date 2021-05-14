@@ -2,7 +2,6 @@ namespace Sistema.Sanatorio.Controllers
 {
     using Servicios.Interface.Provincia;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
     public class ProvinciaController : Controller
     {
         private readonly IProvinciaServicio _provinciaServicio;
@@ -19,11 +18,11 @@ namespace Sistema.Sanatorio.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> NuevaProvincia([FromBody] ProvinciaDto provincia)
+        public JsonResult NuevaProvincia([FromBody] ProvinciaDto provincia)
         {
             if (ModelState.IsValid)
             {
-                var ejecutarOperacion = await _provinciaServicio.Add(provincia);
+                var ejecutarOperacion = _provinciaServicio.Add(provincia);
 
                 return Json(new { finalizado = ejecutarOperacion });
             }
@@ -32,11 +31,11 @@ namespace Sistema.Sanatorio.Controllers
         }
 
         [HttpPut]
-        public async Task<JsonResult> ModificarProvincia([FromBody] ProvinciaDto provinciaModificar)
+        public JsonResult ModificarProvincia([FromBody] ProvinciaDto provinciaModificar)
         {
             if (ModelState.IsValid)
             {
-                var ejecutarModificacion = await _provinciaServicio.Update(provinciaModificar);
+                var ejecutarModificacion = _provinciaServicio.Update(provinciaModificar);
 
                 return Json(new { finalizado = ejecutarModificacion });
             }
@@ -45,17 +44,17 @@ namespace Sistema.Sanatorio.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> JsonProvincias()
+        public JsonResult JsonProvincias()
         {
-            var todasProvincias = await _provinciaServicio.Get();
+            var todasProvincias = _provinciaServicio.Get();
 
             return Json(new { provincias = todasProvincias });
         }
 
         [HttpGet]
-        public async Task<JsonResult> JsonGetProvincia(long idProvincia)
+        public JsonResult JsonGetProvincia(long idProvincia)
         {
-            var provinciaBuscar = await _provinciaServicio.GetById(idProvincia);
+            var provinciaBuscar = _provinciaServicio.GetById(idProvincia);
 
             return Json(new { provincia = provinciaBuscar } );
         }

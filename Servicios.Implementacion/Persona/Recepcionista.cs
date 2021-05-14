@@ -37,9 +37,9 @@ namespace Servicios.Implementacion.Persona
                     TurnoRecepcionista = recepcionista.TurnoRecepcionista
                 };
 
-                await _unidadDeTrabajo.RecepcionistaRepositorio.Add(entidadRecepcionista);
+                await _unidadDeTrabajo.RecepcionistaRepositorio.AddAsync(entidadRecepcionista);
 
-                return await _unidadDeTrabajo.Commit();
+                return await _unidadDeTrabajo.CommitAsync();
             }
             catch (System.Exception e)
             {
@@ -54,7 +54,7 @@ namespace Servicios.Implementacion.Persona
                 Expression<Func<Entidades.Recepcionista, bool>> filtro = obt => 
                 obt.Nombre.Contains(cadenaBuscar) || obt.Apellido.Contains(cadenaBuscar);
 
-                var recepcionistas = await _unidadDeTrabajo.RecepcionistaRepositorio.Get(filtro: filtro, propiedadNavegacion: "Localidad");
+                var recepcionistas = await _unidadDeTrabajo.RecepcionistaRepositorio.GetAsync(filtro: filtro, propiedadNavegacion: "Localidad");
 
                 return recepcionistas.Select(x => new RecepcionistaDto
                 {
@@ -80,7 +80,7 @@ namespace Servicios.Implementacion.Persona
 
         public async override Task<PersonaDto> GetById(long id)
         {
-            var recepcionistaBuscar = await _unidadDeTrabajo.RecepcionistaRepositorio.GetById(id);
+            var recepcionistaBuscar = await _unidadDeTrabajo.RecepcionistaRepositorio.GetByIdAsync(id);
 
             return new RecepcionistaDto
             {
@@ -116,9 +116,9 @@ namespace Servicios.Implementacion.Persona
                     TurnoRecepcionista = recepcionista.TurnoRecepcionista
                 };
 
-                await _unidadDeTrabajo.RecepcionistaRepositorio.Update(entidadRecepcionista);
+                await _unidadDeTrabajo.RecepcionistaRepositorio.UpdateAsync(entidadRecepcionista);
 
-                await _unidadDeTrabajo.Commit();
+                await _unidadDeTrabajo.CommitAsync();
 
                 return true;
             }

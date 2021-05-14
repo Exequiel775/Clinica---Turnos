@@ -2,7 +2,6 @@ namespace Sistema.Sanatorio.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using Servicios.Interface.Localidad;
-    using System.Threading.Tasks;
     using System.Linq;
     using System;
     using System.Collections.Generic;
@@ -22,9 +21,9 @@ namespace Sistema.Sanatorio.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> Get(int? paginado)
+        public JsonResult Get(int? paginado)
         {
-            var localidades = await _localidadServicio.Get();
+            var localidades = _localidadServicio.Get();
 
             var _paginado = paginado ?? 1;
             decimal totalLocalidades = localidades.Count();
@@ -41,38 +40,38 @@ namespace Sistema.Sanatorio.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetSinPaginar()
+        public JsonResult GetSinPaginar()
         {
-            var listaLocalidades = await _localidadServicio.Get();
+            var listaLocalidades = _localidadServicio.Get();
             return Json(new { localidades = listaLocalidades });
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetById(long loc)
+        public JsonResult GetById(long loc)
         {
-            return Json(new { localidad = await _localidadServicio.GetById(loc) } );
+            return Json(new { localidad = _localidadServicio.GetById(loc) } );
         }
         
         [HttpPost]
-        public async Task<JsonResult> Add([FromBody] LocalidadDto localidad)
+        public JsonResult Add([FromBody] LocalidadDto localidad)
         {
-            var agregarProvincia = await _localidadServicio.Add(localidad);
+            var agregarProvincia = _localidadServicio.Add(localidad);
 
             return Json(new { respuesta = agregarProvincia });
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetByProvincia(long provincia)
+        public JsonResult GetByProvincia(long provincia)
         {
-            return Json(new { localidades = await _localidadServicio.Get(provincia) });
+            return Json(new { localidades = _localidadServicio.Get(provincia) });
         }
 
         [HttpPost]
-        public async Task<JsonResult> Update([FromBody] LocalidadDto localidadModificar)
+        public JsonResult Update([FromBody] LocalidadDto localidadModificar)
         {
             if (!ModelState.IsValid) return Json(new { respuesta = false });
 
-            return Json(new { respuesta = await _localidadServicio.Update(localidadModificar) });
+            return Json(new { respuesta = _localidadServicio.Update(localidadModificar) });
         }
     }
 

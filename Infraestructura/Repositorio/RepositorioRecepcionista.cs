@@ -19,6 +19,8 @@ namespace Infraestructura.Repositorio
             _context = db;
         }
 
+        /*
+
         public async override Task<IEnumerable<Recepcionista>> Get(Expression<Func<Recepcionista, bool>> filtro = null, string propiedadNavegacion = "")
         {
             var resultado = propiedadNavegacion.Split(new char[] {','},
@@ -40,5 +42,6 @@ namespace Infraestructura.Repositorio
 
             return await resultado.FirstOrDefaultAsync(x => x.Id == entidadId);
         }
+        */
     }
 }

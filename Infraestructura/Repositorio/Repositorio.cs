@@ -16,7 +16,9 @@ namespace Infraestructura.Repositorio
             _db = db;
         }
 
-        public virtual async Task<bool> Add(T entidadNueva)
+        // ASINCRONOS
+
+        public virtual async Task<bool> AddAsync(T entidadNueva)
         {
             try
             {
@@ -30,7 +32,7 @@ namespace Infraestructura.Repositorio
             }
         }
 
-        public virtual async Task Update(T entidadModificar)
+        public virtual async Task UpdateAsync(T entidadModificar)
         {
             if (entidadModificar == null)
                 throw new System.Exception("Ocurrio un error al modificar la entidad");
@@ -45,23 +47,69 @@ namespace Infraestructura.Repositorio
             _db.Entry(entidadModificar).State = EntityState.Modified;
         }
 
-        public virtual async Task<IEnumerable<T>> Get(System.Linq.Expressions.Expression<System.Func<T, bool>> filtro = null, string propiedadNavegacion = "")
+        public virtual async Task<IQueryable<T>> GetAsync(System.Linq.Expressions.Expression<System.Func<T, bool>> filtro = null, string propiedadNavegacion = "")
         {
-            var result = propiedadNavegacion.Split(new char[] { ',' }, 
-            System.StringSplitOptions.RemoveEmptyEntries)
+            var result = propiedadNavegacion.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries)
             .Aggregate<string, IQueryable<T>>(_db.Set<T>(), (current, include) => current.Include(include));
 
             if (filtro != null) result.Where(filtro);
 
-            return await result.ToListAsync();
+            return await Task.Run(() => result);
         }
 
-        public virtual async Task<T> GetById(long entidadId, string propiedadNavegacion = "")
+        public virtual async Task<T> GetByIdAsync(long entidadId, string propiedadNavegacion = "")
         {
             var resultado = propiedadNavegacion.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries)
             .Aggregate<string, IQueryable<T>>(_db.Set<T>(), (current, include) => current.Include(include));
 
             return await resultado.FirstOrDefaultAsync(x => x.Id == entidadId);
+        }
+
+        // NO ASINCRONOS
+
+        public void AddNoAsync(T entidadNueva)
+        {
+            try
+            {
+                if (entidadNueva == null) throw new System.Exception("La entidad no puede tener un valor nulo");
+
+                _db.Set<T>().Add(entidadNueva);
+            }
+            catch
+            {
+                throw new System.Exception("No se pudo agregar la entidad");   
+            }
+        }
+
+        public void UpdateNoAsync(T entidadModificar)
+        {
+            if (entidadModificar == null)
+                throw new System.Exception("La entidad modificar no puede ser null");
+
+            _db.Set<T>().Attach(entidadModificar);
+
+            var entidad = _db.Set<T>().FirstOrDefault(x => x.Id == entidadModificar.Id);
+
+            if (entidad != null)
+                _db.Entry(entidad).State = EntityState.Detached;
+
+            _db.Entry(entidad).State = EntityState.Modified;
+        }
+
+        public virtual IEnumerable<T> GetNoAsync(string propiedadNavegacion = "")
+        {
+            var resultado = propiedadNavegacion.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries)
+            .Aggregate<string, IQueryable<T>>(_db.Set<T>(), (current, include) => current.Include(include));
+
+            return resultado.ToList();
+        }
+
+        public virtual T GetByIdNoAsync(long entidadId, string propiedadNavegacion)
+        {
+            var resultado = propiedadNavegacion.Split(new char[] {','}, System.StringSplitOptions.RemoveEmptyEntries)
+            .Aggregate<string, IQueryable<T>>(_db.Set<T>(), (current, include) => current.Include(include));
+
+            return resultado.FirstOrDefault(x => x.Id == entidadId);
         }
     }
 }

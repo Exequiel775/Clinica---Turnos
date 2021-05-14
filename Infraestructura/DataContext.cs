@@ -15,6 +15,8 @@ namespace Infraestructura
         public DbSet<Localidad> Localidades { get; set; }
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Recepcionista> Recepcionistas { get; set; }
+        public DbSet<Especialidad> Especialidades { get; set; }
+        public DbSet<Medico> Medicos { get; set; }
 
     }
 }

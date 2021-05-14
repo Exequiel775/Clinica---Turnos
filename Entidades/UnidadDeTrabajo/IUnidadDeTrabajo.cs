@@ -5,10 +5,13 @@ namespace Entidades.UnidadDeTrabajo
     using Entidades.Repositorio;
     public interface IUnidadDeTrabajo
     {
-        Task<bool> Commit();
+        void CommitNoAsync();
+        Task<bool> CommitAsync();
         Task RoolBack();
         IRepositorio<Provincia> RepositorioProvincia { get; }
         IRepositorio<Localidad> LocalidadRepositorio { get; }
-        IRepositorioRecepcionista RecepcionistaRepositorio {get;}
+        IRepositorioRecepcionista RecepcionistaRepositorio { get; }
+        IRepositorio<Especialidad> EspecialidadRepositorio { get; }
+        IRepositorioMedico MedicoRepositorio { get; }
     }
 }

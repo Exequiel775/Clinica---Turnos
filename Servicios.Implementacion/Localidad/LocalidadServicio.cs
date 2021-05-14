@@ -1,7 +1,6 @@
 namespace Servicios.Implementacion.Localidad
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Servicios.Interface.Localidad;
     using Entidades.UnidadDeTrabajo;
     using System.Linq;
@@ -16,7 +15,7 @@ namespace Servicios.Implementacion.Localidad
         {
             _unidadDeTrabajo = unidadDeTrabajo;
         }
-        public async Task<bool> Add(LocalidadDto localidad)
+        public bool Add(LocalidadDto localidad)
         {
             try
             {
@@ -26,24 +25,26 @@ namespace Servicios.Implementacion.Localidad
                     Descripcion = localidad.Descripcion
                 };
 
-                await _unidadDeTrabajo.LocalidadRepositorio.Add(entidadLocalidad);
+                _unidadDeTrabajo.LocalidadRepositorio.AddNoAsync(entidadLocalidad);
 
-                return await _unidadDeTrabajo.Commit();
+                _unidadDeTrabajo.CommitNoAsync();
+
+                return true;
             }
             catch
             {
-                return await Task.Run(() => false);
+                return false;
             }
         }
 
-        public Task<bool> Delete(long id)
+        public bool Delete(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<IEnumerable<LocalidadDto>> Get()
+        public IEnumerable<LocalidadDto>  Get()
         {
-            var todasLocalidades = await _unidadDeTrabajo.LocalidadRepositorio.Get(propiedadNavegacion: "Provincia");
+            var todasLocalidades = _unidadDeTrabajo.LocalidadRepositorio.GetNoAsync(propiedadNavegacion: "Provincia");
 
             return todasLocalidades.Any() ?
             todasLocalidades.Select(x => new LocalidadDto
@@ -52,13 +53,13 @@ namespace Servicios.Implementacion.Localidad
                 ProvinciaId = x.ProvinciaId,
                 Descripcion = x.Descripcion,
                 Provincia = x.Provincia.Descripcion
-            }).ToList()
-            : new List<LocalidadDto>();
+            })
+            : null;
         }
 
-        public async Task<IEnumerable<LocalidadDto>> Get(long idProvincia)
+        public IEnumerable<LocalidadDto> Get(long idProvincia)
         {
-            var localidades = await _unidadDeTrabajo.LocalidadRepositorio.Get(propiedadNavegacion: "Provincia");
+            var localidades = _unidadDeTrabajo.LocalidadRepositorio.GetNoAsync(propiedadNavegacion: "Provincia");
 
             return localidades.Where(x => x.ProvinciaId == idProvincia)
             .Select(x => new LocalidadDto
@@ -67,12 +68,12 @@ namespace Servicios.Implementacion.Localidad
                 ProvinciaId = x.ProvinciaId,
                 Descripcion = x.Descripcion,
                 Provincia = x.Provincia.Descripcion
-            }).ToList();
+            });
         }
 
-        public async Task<LocalidadDto> GetById(long id)
+        public LocalidadDto GetById(long id)
         {
-            var localidadSeleccionada = await _unidadDeTrabajo.LocalidadRepositorio.GetById(id);
+            var localidadSeleccionada = _unidadDeTrabajo.LocalidadRepositorio.GetByIdNoAsync(id);
 
             return new LocalidadDto()
             {
@@ -82,7 +83,7 @@ namespace Servicios.Implementacion.Localidad
             };
         }
 
-        public async Task<bool> Update(LocalidadDto localidadModificar)
+        public bool Update(LocalidadDto localidadModificar)
         {
             try
             {
@@ -93,13 +94,15 @@ namespace Servicios.Implementacion.Localidad
                     Descripcion = localidadModificar.Descripcion
                 };
 
-                await _unidadDeTrabajo.LocalidadRepositorio.Update(entidadModificar);
+                _unidadDeTrabajo.LocalidadRepositorio.UpdateNoAsync(entidadModificar);
 
-                return await _unidadDeTrabajo.Commit();
+                 _unidadDeTrabajo.CommitNoAsync();
+
+                 return true;
             }
             catch
             {
-                return await Task.Run(() => false);
+                return false;
             }
         }
     }
