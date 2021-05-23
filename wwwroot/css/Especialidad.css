@@ -1,0 +1,30 @@
+.contenedor-tabla {
+    margin-top: 20px;
+}
+
+.contenedor-paginacion {
+    margin-top: 15px;
+}
+
+.nuevo {
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
+}
+
+.modificar {
+    padding: 15px;
+}
+
+.paginado {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 5px;
+}
+
+@media (max-width: 767px) {}
+
+@media(min-width: 767px) {
+    .buscar {
+        margin-left: 20px;
+    }
+}

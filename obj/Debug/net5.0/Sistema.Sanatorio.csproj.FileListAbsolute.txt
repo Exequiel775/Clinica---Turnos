@@ -102,3 +102,4 @@ C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\Microsoft.Extensions.Dependency
 C:\Users\User\Sistema.Sanatorio\bin\Debug\net5.0\SimpleInjector.Integration.AspNetCore.Mvc.Core.dll
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Sistema.Sanatorio.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Persona\NuevoRecepcionista.cshtml.g.cs
+C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Especialidad\Index.cshtml.g.cs
