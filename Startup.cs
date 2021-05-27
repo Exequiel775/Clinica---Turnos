@@ -78,6 +78,7 @@ namespace Sistema.Sanatorio
             container.Register<IRecepcionistaServicio, RecepcionistaServicio>(Lifestyle.Transient);
             container.Register<IPersonaServicio, PersonaServicio>(Lifestyle.Transient);
             container.Register<IEspecialidadServicio, EspecialidadServicio>(Lifestyle.Transient);
+            container.Register<IMedicoServicio, MedicoServicio>(Lifestyle.Transient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

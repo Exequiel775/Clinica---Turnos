@@ -1,0 +1,10 @@
+@model IEnumerable<Servicios.Interface.Persona.MedicoDto>
+
+@{
+    ViewData["Title"] = "Medicos";
+}
+
+@foreach (var item in Model)
+{
+    <strong>@item.Apellido</strong>
+}

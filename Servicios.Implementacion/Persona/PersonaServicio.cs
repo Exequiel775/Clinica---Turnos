@@ -57,6 +57,7 @@ namespace Servicios.Implementacion.Persona
         public void InicializadorDiccionario()
         {
             _diccionario.Add(typeof(RecepcionistaDto), "Servicios.Implementacion.Persona.Recepcionista");
+            _diccionario.Add(typeof(MedicoDto), "Servicios.Implementacion.Persona.Medico");
         }
 
         private Persona InstanciarEntidad(string tipoEntidad)
