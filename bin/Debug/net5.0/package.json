@@ -20,6 +20,7 @@
   "dependencies": {
     "@microsoft/signalr": "^5.0.5",
     "@types/es6-promise": "^3.3.0",
+    "sweetalert2": "^11.0.16",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.6.0"
   }

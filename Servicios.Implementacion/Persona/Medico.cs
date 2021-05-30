@@ -49,9 +49,40 @@ namespace Servicios.Implementacion.Persona
             }
         }
 
+        public override async Task<bool> Update(PersonaDto persona)
+        {
+            try
+            {
+                var medico = (MedicoDto)persona;
+
+                var medicoModificar = await _unidadDeTrabajo.MedicoRepositorio.GetByIdAsync(medico.Id);
+
+                medicoModificar.LocalidadId = medico.LocalidadId;
+                medicoModificar.Nombre = medico.Nombre;
+                medicoModificar.Apellido = medico.Apellido;
+                medicoModificar.Dni = medico.Dni;
+                medicoModificar.FechaNacimiento = medico.FechaNacimiento;
+                medicoModificar.EspecialidadId = medico.EspecialidadId;
+                medicoModificar.Matricula = medico.Matricula;
+                medicoModificar.Celular = medico.Celular;
+                medicoModificar.Telefono = medico.Telefono;
+                medicoModificar.Email = medico.Email;
+
+                await _unidadDeTrabajo.MedicoRepositorio.UpdateAsync(medicoModificar);
+
+                await _unidadDeTrabajo.CommitAsync();
+
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public override async Task<IEnumerable<PersonaDto>> Get(string cadenaBuscar)
         {
-            var medicos = await _unidadDeTrabajo.MedicoRepositorio.GetAsync();
+            var medicos = await _unidadDeTrabajo.MedicoRepositorio.GetAsync(propiedadNavegacion: "Especialidad,Localidad");
 
             return medicos.Select(x => new MedicoDto
             {
@@ -59,11 +90,35 @@ namespace Servicios.Implementacion.Persona
                 LocalidadId = x.LocalidadId,
                 Nombre = x.Nombre,
                 Apellido = x.Apellido,
+                Celular = x.Celular,
+                Telefono = x.Telefono,
+                Dni = x.Dni,
                 FechaNacimiento = x.FechaNacimiento,
                 Email = x.Email,
+                Imagen = x.Imagen,
+                Matricula = x.Matricula,
                 EspecialidadId = x.EspecialidadId,
-                EspecialidadStr = x.Especialidad.Descripcion
+                EspecialidadStr = x.Especialidad.Descripcion,
+                ProvinciaId = x.Localidad.ProvinciaId
             });
+        }
+
+        public override async Task<PersonaDto> GetById(long id)
+        {
+            var medicoSeleccionado = await _unidadDeTrabajo.MedicoRepositorio.GetByIdAsync(entidadId: id);
+
+            if (medicoSeleccionado == null) 
+                throw new Exception("No se pudo obtener los datos del medico solicitado.");
+
+            return new MedicoDto
+            {
+                Id = medicoSeleccionado.Id,
+                LocalidadId = medicoSeleccionado.LocalidadId,
+                EspecialidadId = medicoSeleccionado.EspecialidadId,
+                Nombre = medicoSeleccionado.Nombre,
+                Apellido = medicoSeleccionado.Apellido,
+                Dni = medicoSeleccionado.Dni
+            };
         }
 
     }

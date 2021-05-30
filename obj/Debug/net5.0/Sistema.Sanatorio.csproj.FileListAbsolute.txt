@@ -104,3 +104,4 @@ C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Sistema.Sanatorio.MvcApplicatio
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Persona\NuevoRecepcionista.cshtml.g.cs
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Especialidad\Index.cshtml.g.cs
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Medicos\Index.cshtml.g.cs
+C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Medicos\NuevoMedico.cshtml.g.cs
