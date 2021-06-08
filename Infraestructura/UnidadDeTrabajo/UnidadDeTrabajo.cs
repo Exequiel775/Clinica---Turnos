@@ -25,6 +25,10 @@ namespace Infraestructura.UnidadDeTrabajo
         public IRepositorio<Especialidad> EspecialidadRepositorio => _repositorioEspecialidad ?? (_repositorioEspecialidad = new Repositorio<Especialidad>(_db));
         private IRepositorioMedico _repositorioMedico;
         public IRepositorioMedico MedicoRepositorio => _repositorioMedico ?? (_repositorioMedico = new RepositorioMedico(_db));
+        private IRepositorio<Turno> _turnoRepositorio;
+        public IRepositorio<Turno> TurnoRepositorio => _turnoRepositorio ?? (_turnoRepositorio = new Repositorio<Turno>(_db));
+        private IRepositorio<Paciente> _pacienteRepositorio;
+        public IRepositorio<Paciente> PacienteRepositorio => _pacienteRepositorio ?? (_pacienteRepositorio = new Repositorio<Paciente>(_db));
 
         public async Task<bool> CommitAsync() => await _db.SaveChangesAsync() > 0;
         public async Task RoolBack() => await _db.DisposeAsync();

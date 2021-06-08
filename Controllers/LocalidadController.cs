@@ -5,6 +5,8 @@ namespace Sistema.Sanatorio.Controllers
     using System.Linq;
     using System;
     using System.Collections.Generic;
+    using Servicios.Interface.Provincia;
+    using Models;
     public class LocalidadController : Controller
     {
         private readonly ILocalidadServicio _localidadServicio;

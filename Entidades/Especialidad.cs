@@ -12,5 +12,6 @@ namespace Entidades
 
         //NAV
         public virtual ICollection<Medico> Medicos { get; set; }
+        public virtual ICollection<Turno> Turnos { get; set; }
     }
 }

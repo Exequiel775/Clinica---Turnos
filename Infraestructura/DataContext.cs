@@ -17,6 +17,7 @@ namespace Infraestructura
         public DbSet<Recepcionista> Recepcionistas { get; set; }
         public DbSet<Especialidad> Especialidades { get; set; }
         public DbSet<Medico> Medicos { get; set; }
-
+        public DbSet<Turno> Turnos { get; set; }
+        public DbSet<Paciente> Pacientes { get; set; }
     }
 }

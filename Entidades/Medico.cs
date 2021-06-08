@@ -3,6 +3,7 @@ namespace Entidades
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System;
+    using System.Collections.Generic;
     public class Medico : Persona
     {
         [Required]
@@ -22,5 +23,6 @@ namespace Entidades
 
         // NAVEGACIÓN
         public virtual Especialidad Especialidad { get; set; }
+        public virtual ICollection<Turno> Turnos { get; set; }
     }
 }

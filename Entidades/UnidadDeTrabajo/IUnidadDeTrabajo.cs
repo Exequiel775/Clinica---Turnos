@@ -13,5 +13,7 @@ namespace Entidades.UnidadDeTrabajo
         IRepositorioRecepcionista RecepcionistaRepositorio { get; }
         IRepositorio<Especialidad> EspecialidadRepositorio { get; }
         IRepositorioMedico MedicoRepositorio { get; }
-    }
+        IRepositorio<Turno> TurnoRepositorio { get; }
+        IRepositorio<Paciente> PacienteRepositorio { get; }
+     }
 }

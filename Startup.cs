@@ -21,6 +21,10 @@ namespace Sistema.Sanatorio
     using Servicios.Implementacion.Persona;
     using Servicios.Interface.Especialidad;
     using Servicios.Implementacion.Especialidad;
+    using Servicios.Interface.Paciente;
+    using Servicios.Interface.Turno;
+    using Servicios.Implementacion.Paciente;
+    using Servicios.Implementacion.Turno;
     using SimpleInjector;
     public class Startup
     {
@@ -79,6 +83,8 @@ namespace Sistema.Sanatorio
             container.Register<IPersonaServicio, PersonaServicio>(Lifestyle.Transient);
             container.Register<IEspecialidadServicio, EspecialidadServicio>(Lifestyle.Transient);
             container.Register<IMedicoServicio, MedicoServicio>(Lifestyle.Transient);
+            container.Register<IPacienteServicio, PacienteServicio>(Lifestyle.Transient);
+            container.Register<ITurnoServicio, TurnoServicio>(Lifestyle.Transient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
