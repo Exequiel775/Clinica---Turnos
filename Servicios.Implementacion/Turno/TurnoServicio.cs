@@ -38,9 +38,9 @@ namespace Servicios.Implementacion.Turno
                     {
                         PacienteId = turno.PacienteId,
                         EspecialidadId = turno.EspecialidadId,
-                        MedicoId = turno.MedicoId,
-                        RecepcionistaId = turno.RecepcionistaId,
-                        Numero = turno.Numero,
+                        MedicoId = 24,
+                        RecepcionistaId = 17,
+                        Numero = ObtenerNumeroTurno(),
                         FechaEmision = DateTime.Now,
                         FechaAtencion = turno.FechaAtencion,
                         EstadoTurno = Constantes.Clases.EstadoTurno.En_Espera
@@ -52,10 +52,10 @@ namespace Servicios.Implementacion.Turno
 
                     return true;
                 }
-                catch
+                catch (Exception e)
                 {
                     t.Dispose();
-                    return false;
+                    throw new Exception(e.Message);
                 }
             }
         }
@@ -63,6 +63,15 @@ namespace Servicios.Implementacion.Turno
         public IQueryable<TurnoDto> GetByMedico(long idMedico)
         {
             throw new System.NotImplementedException();
+        }
+
+        /*===================== METODOS PRIVADOS =====================*/
+        
+        private int ObtenerNumeroTurno()
+        {
+            var turnos = _unidadDeTrabajo.TurnoRepositorio.GetNoAsync();
+
+            return turnos.Any() ? turnos.Max(x => x.Numero) + 1 : 1;
         }
     }
 }

@@ -38,16 +38,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var PacienteServicio_1 = require("../PacienteTS/PacienteServicio");
 var sweetalert2_1 = require("sweetalert2");
+var Turno_1 = require("./Turno");
+var TurnoServicio_1 = require("../TurnosTS/TurnoServicio");
 var _pacienteServicio = new PacienteServicio_1.PacienteServicio();
+var _turnoServicio = new TurnoServicio_1.TurnoServicio();
 document.getElementById('buscar').addEventListener('click', function () { return __awaiter(void 0, void 0, void 0, function () {
-    var dniPaciente;
+    var turno, grabarTurno;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                dniPaciente = parseInt(document.getElementById('dni').value);
-                return [4 /*yield*/, BuscarDni(dniPaciente)];
+                turno = new Turno_1.Turno();
+                turno.especialidadId = 1;
+                turno.fechaAtencion = new Date();
+                turno.medicoId = 1;
+                turno.recepcionistaId = 1;
+                turno.paciente.apellido = 'Chaves';
+                turno.paciente.celular = 131312;
+                turno.paciente.dni = 321123321;
+                turno.paciente.email = 'jessica@gmail.com';
+                turno.paciente.fechaNacimiento = new Date();
+                turno.paciente.localidadId = 3;
+                turno.paciente.nombre = 'Jessica Fernanda';
+                turno.paciente.telefono = 32109123;
+                return [4 /*yield*/, GrabarTurno(turno)];
             case 1:
-                _a.sent();
+                grabarTurno = _a.sent();
+                sweetalert2_1.default.fire({
+                    icon: 'info',
+                    title: 'Respuesta de la peticion',
+                    text: grabarTurno.mensaje + ". Estado: " + grabarTurno.estado
+                });
                 return [2 /*return*/];
         }
     });
@@ -75,6 +95,19 @@ function BuscarDni(dni) {
                         });
                     }
                     return [2 /*return*/];
+            }
+        });
+    });
+}
+function GrabarTurno(turno) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, _turnoServicio.Add(turno)];
+                case 1:
+                    response = _a.sent();
+                    return [2 /*return*/, response];
             }
         });
     });

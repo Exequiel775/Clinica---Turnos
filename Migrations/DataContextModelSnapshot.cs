@@ -115,6 +115,50 @@ namespace Sistema.Sanatorio.Migrations
                     b.ToTable("Provincias");
                 });
 
+            modelBuilder.Entity("Entidades.Turno", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("EspecialidadId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("EstadoTurno")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaAtencion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEmision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("MedicoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<long>("PacienteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RecepcionistaId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EspecialidadId");
+
+                    b.HasIndex("MedicoId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.HasIndex("RecepcionistaId");
+
+                    b.ToTable("Turnos");
+                });
+
             modelBuilder.Entity("Entidades.Medico", b =>
                 {
                     b.HasBaseType("Entidades.Persona");
@@ -138,6 +182,13 @@ namespace Sistema.Sanatorio.Migrations
                     b.HasIndex("EspecialidadId");
 
                     b.HasDiscriminator().HasValue("Medico");
+                });
+
+            modelBuilder.Entity("Entidades.Paciente", b =>
+                {
+                    b.HasBaseType("Entidades.Persona");
+
+                    b.HasDiscriminator().HasValue("Paciente");
                 });
 
             modelBuilder.Entity("Entidades.Recepcionista", b =>
@@ -172,6 +223,41 @@ namespace Sistema.Sanatorio.Migrations
                     b.Navigation("Localidad");
                 });
 
+            modelBuilder.Entity("Entidades.Turno", b =>
+                {
+                    b.HasOne("Entidades.Especialidad", "Especialidad")
+                        .WithMany("Turnos")
+                        .HasForeignKey("EspecialidadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entidades.Medico", "Medico")
+                        .WithMany("Turnos")
+                        .HasForeignKey("MedicoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Entidades.Paciente", "Paciente")
+                        .WithMany("Turnos")
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entidades.Recepcionista", "Recepcionista")
+                        .WithMany("Turnos")
+                        .HasForeignKey("RecepcionistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Especialidad");
+
+                    b.Navigation("Medico");
+
+                    b.Navigation("Paciente");
+
+                    b.Navigation("Recepcionista");
+                });
+
             modelBuilder.Entity("Entidades.Medico", b =>
                 {
                     b.HasOne("Entidades.Especialidad", "Especialidad")
@@ -186,6 +272,8 @@ namespace Sistema.Sanatorio.Migrations
             modelBuilder.Entity("Entidades.Especialidad", b =>
                 {
                     b.Navigation("Medicos");
+
+                    b.Navigation("Turnos");
                 });
 
             modelBuilder.Entity("Entidades.Localidad", b =>
@@ -196,6 +284,21 @@ namespace Sistema.Sanatorio.Migrations
             modelBuilder.Entity("Entidades.Provincia", b =>
                 {
                     b.Navigation("Localidades");
+                });
+
+            modelBuilder.Entity("Entidades.Medico", b =>
+                {
+                    b.Navigation("Turnos");
+                });
+
+            modelBuilder.Entity("Entidades.Paciente", b =>
+                {
+                    b.Navigation("Turnos");
+                });
+
+            modelBuilder.Entity("Entidades.Recepcionista", b =>
+                {
+                    b.Navigation("Turnos");
                 });
 #pragma warning restore 612, 618
         }

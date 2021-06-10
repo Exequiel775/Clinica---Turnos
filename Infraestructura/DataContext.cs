@@ -11,6 +11,13 @@ namespace Infraestructura
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Medico>().HasMany(x => x.Turnos).WithOne(e => e.Medico).OnDelete(DeleteBehavior.NoAction);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<Provincia> Provincias { get; set; }
         public DbSet<Localidad> Localidades { get; set; }
         public DbSet<Persona> Personas { get; set; }
