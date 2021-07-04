@@ -15,33 +15,112 @@
     </div>
     <div class="mt-4">
         <form action="/Turnos/GrabarTurno" method="POST">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-4">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control" name="Nombre">
-                    </div>
-                    <div class="col-4">
-                        <label>Apellido</label>
-                        <input type="text" class="form-control" name="Apellido">
-                    </div>
-                    <div class="col-4">
-                        <label>DNI</label>
-                        <input type="text" class="form-control" name="Dni">
-                    </div>
-                    <div class="col-4">
-                        <input type="date" class="form-control" name="FechaNacimiento">
-                    </div>
+            <div class="row">
+                <div class="col-4">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="Nombre">
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <label>Provincia</label>
+                <div class="col-4">
+                    <label>Apellido</label>
+                    <input type="text" class="form-control" name="Apellido">
+                </div>
+                <div class="col-4">
+                    <label>DNI</label>
+                    <input type="text" class="form-control" name="Dni">
+                </div>
+                <div class="col-4">
+                    <label>Fecha Nacimiento</label>
+                    <input type="date" class="form-control" name="FechaNacimiento">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label>Provincia</label>
+                    <select class="form-control" name="Provincia">
+
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label>Localidad</label>
+                    <select class="form-control" name="Localidad">
+
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label>Telefono</label>
+                    <input type="text" class="form-control" name="Telefono">
+                </div>
+                <div class="col-4">
+                    <label>Celular</label>
+                    <input type="text" class="form-control" name="Celular">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label>Especialidad</label>
+                    <select class="form-control" name="Especialidad">
+
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label>Medico</label>
+                    <select class="form-control" name="Medico">
+
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label>Fecha Atención</label>
+                    <select class="form-control" name="FechaAtencion">
                         
-                    </div>
+                    </select>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalSeleccionarMedico" tabindex="-1" aria-labelledby="modalSeleccionarMedicoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Seleccionar Medico</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <div class="border info">
+                <label>Haga doble click sobre el medico para seleccionarlo</label>
+            </div>
+            <div class="mt-2">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Apellido y Nombre</th>
+                                <th>Especialidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-medicos">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    .info{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+</style>
 
 <script src="~/Scripts/NuevoTurnoJs/main.js"></script>

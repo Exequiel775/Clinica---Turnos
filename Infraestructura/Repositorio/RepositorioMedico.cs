@@ -38,6 +38,11 @@ namespace Infraestructura.Repositorio
 
             return await resultado.FirstOrDefaultAsync(x => x.Id == entidadId);
         }
+
+        public IQueryable<Medico> GetByEspecialidad(long especialidad)
+        {
+            return _db.Personas.OfType<Entidades.Medico>().Where(x => x.EspecialidadId == especialidad);
+        }
         /*
         public async override Task<IQueryable<Medico>> GetMedicosAsync(Expression<Func<Medico, bool>> filtro = null, string propiedadNavegacion = "")
         {

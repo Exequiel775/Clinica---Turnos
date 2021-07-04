@@ -6,29 +6,50 @@
     <title>@ViewData["Title"] - Sistema.Sanatorio</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sistema.Sanatorio</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <nav
+        style="background-color: #2c2c54;" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light text-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="/Home/Index"
+                style="font-family: 'Arimo', sans-serif;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/Home/Index"
+                            style="font-family: 'Roboto Slab', serif; border-right:2px solid #f7f1e3">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" style="font-family:'Roboto Slab', serif; border-right:2px solid #f7f1e3" href="#">TURNOS</a>
+                    </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-white" style="font-family: 'Roboto Slab', serif; border-right:2px solid #f7f1e3" href="#">RECEPCIONISTAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown show">
+                            <a class="btn dropdown-toggle text-white" href="#" role="button" id="menuParametricas"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family:'Roboto Slab', serif;">
+                                PARAMETRICAS
+                            </a>
+
+                            <div class="dropdown-menu" id="menuParametricas">
+                                <a class="dropdown-item" href="/Provincia/Index">Provincias</a>
+                                <a class="dropdown-item" href="/Localidad/Index">Localidades</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
     <!--<div class="">-->
         <main role="main" class="pb-3">
             @RenderBody()

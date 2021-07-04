@@ -40,8 +40,29 @@ var PacienteServicio_1 = require("../PacienteTS/PacienteServicio");
 var sweetalert2_1 = require("sweetalert2");
 var Turno_1 = require("./Turno");
 var TurnoServicio_1 = require("../TurnosTS/TurnoServicio");
+var Localidad_1 = require("../Localidad/Localidad");
+var Provincia_1 = require("../ProvinciaTS/Provincia");
+var EspecialidadServicio_1 = require("../EspecialidadTS/EspecialidadServicio");
+var Request_1 = require("../FetchRequestTS/Request");
 var _pacienteServicio = new PacienteServicio_1.PacienteServicio();
 var _turnoServicio = new TurnoServicio_1.TurnoServicio();
+var _especialidadServicio = new EspecialidadServicio_1.EspecialidadServicio();
+var _localidadServicio = new Localidad_1.LocalidadServicio();
+var _provinciaServicio = new Provincia_1.ProvinciaServicio();
+var _requestMedico = new Request_1.Request();
+document.addEventListener('DOMContentLoaded', function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, CargarProvincias()];
+            case 1:
+                _a.sent();
+                return [4 /*yield*/, CargarEspecialidades()];
+            case 2:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
 document.getElementById('buscar').addEventListener('click', function () { return __awaiter(void 0, void 0, void 0, function () {
     var turno, grabarTurno;
     return __generator(this, function (_a) {
@@ -108,6 +129,100 @@ function GrabarTurno(turno) {
                 case 1:
                     response = _a.sent();
                     return [2 /*return*/, response];
+            }
+        });
+    });
+}
+function CargarProvincias() {
+    return __awaiter(this, void 0, void 0, function () {
+        var provincias, selectProvincia;
+        var _this = this;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, _provinciaServicio.Get()];
+                case 1:
+                    provincias = _a.sent();
+                    selectProvincia = document.getElementsByName('Provincia')[0];
+                    provincias.forEach(function (provincia) {
+                        selectProvincia.add(new Option(provincia.descripcion, provincia.id.toString()));
+                        selectProvincia.onchange = function (e) { return __awaiter(_this, void 0, void 0, function () {
+                            var provinciaSeleccionada;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        provinciaSeleccionada = e.target.value;
+                                        return [4 /*yield*/, CargarLocalidades(parseInt(provinciaSeleccionada))];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); };
+                    });
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function CargarEspecialidades() {
+    return __awaiter(this, void 0, void 0, function () {
+        var especialidades, selectEspecialidad;
+        var _this = this;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, _especialidadServicio.Get()];
+                case 1:
+                    especialidades = _a.sent();
+                    selectEspecialidad = document.getElementsByName('Especialidad')[0];
+                    especialidades.forEach(function (especialidad) {
+                        selectEspecialidad.add(new Option(especialidad.descripcion, especialidad.id.toString()));
+                        selectEspecialidad.onchange = function (e) { return __awaiter(_this, void 0, void 0, function () {
+                            var especialidadSeleccionada;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        especialidadSeleccionada = e.target.value;
+                                        return [4 /*yield*/, CargarMedicos(parseInt(especialidadSeleccionada))];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); };
+                    });
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function CargarLocalidades(provincia) {
+    return __awaiter(this, void 0, void 0, function () {
+        var localidades, selectLocalidad;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, _localidadServicio.GetByProvincia(provincia)];
+                case 1:
+                    localidades = _a.sent();
+                    selectLocalidad = document.getElementsByClassName('Localidad')[0];
+                    selectLocalidad.options.length = 0;
+                    localidades.forEach(function (localidad) {
+                        selectLocalidad.add(new Option(localidad.descripcion, localidad.id.toString()));
+                    });
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function CargarMedicos(especialidad) {
+    return __awaiter(this, void 0, void 0, function () {
+        var medicos;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, _requestMedico.Get("/Medicos/GetByEspecialidad?especialidad=" + especialidad)];
+                case 1:
+                    medicos = _a.sent();
+                    console.log(medicos);
+                    return [2 /*return*/];
             }
         });
     });

@@ -8,15 +8,18 @@ namespace Sistema.Sanatorio.Controllers
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Models;
-
+    using System.Linq;
+    using Constantes.Clases.Response;
     public class MedicosController : Controller
     {
         private readonly IMedicoServicio _medicoServicio;
         private readonly IWebHostEnvironment _env;
-        public MedicosController(IMedicoServicio medicoServicio, IWebHostEnvironment env)
+        private Response _response;
+        public MedicosController(IMedicoServicio medicoServicio, IWebHostEnvironment env, Response response)
         {
             _medicoServicio = medicoServicio;
             _env = env;
+            _response = response;
         }
 
         [HttpGet]
@@ -35,8 +38,8 @@ namespace Sistema.Sanatorio.Controllers
         public async Task<JsonResult> JsonMedicos()
         {
             var medicos = (IEnumerable<MedicoDto>)await _medicoServicio.Get(typeof(MedicoDto), string.Empty);
-
-            return Json(new { listaMedicos = medicos });
+            return Json(medicos);
+            //return Json(new { listaMedicos = medicos });
         }
 
         [HttpPost]
@@ -94,6 +97,21 @@ namespace Sistema.Sanatorio.Controllers
             }
 
             return Json(new { respuesta = false } );
+        }
+
+        [HttpGet]
+        public JsonResult GetByEspecialidad(long especialidad)
+        {
+            try
+            {
+                var especialidades = _medicoServicio.GetByEspecialidad(especialidad);
+
+                return Json(especialidades);
+            }
+            catch(System.Exception e)
+            {
+                throw new System.Exception(e.Message);
+            }
         }
     }
 }
