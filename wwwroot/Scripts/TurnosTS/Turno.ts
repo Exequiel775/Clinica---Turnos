@@ -3,6 +3,7 @@ import { Paciente } from '../PacienteTS/Paciente';
 export class Turno
 {
     id : number;
+    pacienteId : number;
     especialidadId : number;
     medicoId : number;
     recepcionistaId : number;

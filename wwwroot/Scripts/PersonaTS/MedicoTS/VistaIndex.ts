@@ -30,6 +30,7 @@ _selectProvincia.addEventListener('change', async(e) => {
 async function CargarMedicos() : Promise<void>
 {
     let medicos = await _medicoServicio.Get();
+    console.log(medicos);
     const contenedor = document.querySelector('.contenedor');
     contenedor.innerHTML = '';
 

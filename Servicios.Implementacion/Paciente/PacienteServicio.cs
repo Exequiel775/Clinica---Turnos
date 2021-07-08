@@ -49,6 +49,7 @@ namespace Servicios.Implementacion.Paciente
             {
                 return new PacienteDto
                 {
+                    Id = pacienteBuscar.Id,
                     LocalidadId = pacienteBuscar.LocalidadId,
                     Nombre = pacienteBuscar.Nombre,
                     Apellido = pacienteBuscar.Apellido,

@@ -104,9 +104,9 @@ namespace Sistema.Sanatorio.Controllers
         {
             try
             {
-                var especialidades = _medicoServicio.GetByEspecialidad(especialidad);
+                var medicos = _medicoServicio.GetByEspecialidad(especialidad);
 
-                return Json(especialidades);
+                return Json(medicos);
             }
             catch(System.Exception e)
             {

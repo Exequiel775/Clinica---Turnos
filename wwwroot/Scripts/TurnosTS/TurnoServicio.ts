@@ -3,7 +3,7 @@ import { Turno } from '../TurnosTS/Turno';
 
 export class TurnoServicio
 {
-    async Add(turno : Turno) : Promise<Response>
+    async Add(turno : Turno) : Promise<Response<Turno>>
     {
         return await fetch('/Turnos/GrabarTurno', {
             method:'POST',
@@ -17,7 +17,7 @@ export class TurnoServicio
                 throw new Error(`Error al grabar turno: ${response.statusText}`)
             }
 
-            return response.json() as Promise<{ response : Response }>;
+            return response.json() as Promise<{ response : Response<Turno> }>;
         })
         .then(json => {
             return json.response;

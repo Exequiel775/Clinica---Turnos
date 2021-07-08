@@ -7,5 +7,6 @@ namespace Servicios.Interface.Turno
     {
         bool Add(TurnoDto turno);
         IQueryable<TurnoDto> GetByMedico(long idMedico);
+        IQueryable<TurnoDto> BuscarTurno(int numero, int dniPaciente);
     }
 }

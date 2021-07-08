@@ -1,7 +1,10 @@
 import {Medico} from './Medico';
+import { Request } from '../../FetchRequestTS/Request';
 
 export class MedicoServicio
 {
+    private readonly _request : Request<Medico> = new Request<Medico>();
+
     Add(formData : FormData) : Promise<boolean>
     {
         return fetch('/Medicos/NuevoMedico', {
@@ -22,6 +25,8 @@ export class MedicoServicio
 
     Get() : Promise<Medico[]>
     {
+        return this._request.Get('/Medicos/JsonMedicos');
+        /*
         return fetch('/Medicos/JsonMedicos', {
             method:'GET'
         })
@@ -34,7 +39,7 @@ export class MedicoServicio
         })
         .then(json => {
             return json.listaMedicos;
-        })
+        })*/
     }
 
     Update(medicoModificar: Medico): Promise<boolean>

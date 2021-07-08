@@ -10,17 +10,29 @@ namespace Sistema.Sanatorio.Controllers
     {
         private readonly ITurnoServicio _turnoServicio;
         private readonly IPacienteServicio _pacienteServicio;
-        public TurnosController(ITurnoServicio turnoServicio, IPacienteServicio pacienteServicio)
+        private readonly Response _response;
+        public TurnosController(ITurnoServicio turnoServicio, IPacienteServicio pacienteServicio, Response response)
         {
             _turnoServicio = turnoServicio;
             _pacienteServicio = pacienteServicio;
+            _response = response;
         }
+
+        // ======== VISTAS ========= //
 
         [HttpGet]
         public IActionResult NuevoTurno()
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult BuscarTurnoPaciente()
+        {
+            return View();
+        }
+
+        // ======= Metodos que devuelven informacion a la vista ====== //
 
         [HttpGet]
         public JsonResult BuscarPaciente(int dni)
@@ -82,7 +94,7 @@ namespace Sistema.Sanatorio.Controllers
                 turnoDto.Paciente.Email = datosTurno.Paciente.Email;
                 turnoDto.Paciente.Celular = datosTurno.Paciente.Celular;
                 turnoDto.Paciente.Telefono = datosTurno.Paciente.Telefono;
-*/
+                */
                 bool ejecutarAdd = _turnoServicio.Add(datosTurno);
                 
                 if (ejecutarAdd)
@@ -104,6 +116,34 @@ namespace Sistema.Sanatorio.Controllers
                 response.Mensaje = "Ocurrio un error al grabar el turno";
                 return Json(new { response = response });
             }
+        }
+        
+        [HttpGet]
+        public JsonResult BuscarTurno(int? dniPaciente, int? numeroTurno)
+        {
+            if (dniPaciente.GetValueOrDefault() == 0 && numeroTurno.GetValueOrDefault() == 0)
+            {
+                _response.Estado = false;
+                _response.Mensaje = "Por favor ingrese el dni del paciente o el NRO del turno.";
+                _response.Objeto = null;
+                _response.ListaObjetos = null;
+                return Json(_response);
+            }
+
+            var datosTurno = _turnoServicio.BuscarTurno(numeroTurno.GetValueOrDefault(), 
+            dniPaciente.GetValueOrDefault());
+
+            if (datosTurno == null){
+                _response.Estado = false;
+                _response.Mensaje = "No se encontraron turnos asociados a los datos ingresados";
+                _response.Objeto = null;
+                _response.ListaObjetos = null;
+                return Json(_response);
+            }
+
+            _response.Estado = true;
+            _response.ListaObjetos = datosTurno;
+            return Json(_response);
         }
     }
 }

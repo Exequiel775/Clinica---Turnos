@@ -1,0 +1,66 @@
+@{
+    ViewData["Title"] = "Buscar Turno";
+}
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<div class="container">
+    <div class="lookup">
+        <label>Ingrese el dni del paciente</label>
+        <div class="form-inline">
+            <div class="input-group mb-2 mr-sm-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-credit-card-2-back" viewBox="0 0 16 16">
+                            <path
+                                d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1z" />
+                            <path
+                                d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm13 2v5H1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1z" />
+                        </svg>
+                    </div>
+                </div>
+                <input type="text" class="form-control dniBuscar" id="inlineFormInputGroupUsername2" placeholder="Username">
+                <button type="button" class="btn btn-primary ml-2 btnBuscar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nro.</th>
+                    <th>Estado</th>
+                    <th>F. Emision</th>
+                    <th>Paciente</th>
+                </tr>
+            </thead>
+            <tbody class="tabla-turnos">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style type="text/css">
+
+    .lookup label{
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .lookup {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+</style>
+
+<script src="~/Scripts/VistaBuscarTurnoJs/main.js"></script>

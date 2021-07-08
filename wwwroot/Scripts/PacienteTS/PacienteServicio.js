@@ -5,7 +5,7 @@ var PacienteServicio = /** @class */ (function () {
     function PacienteServicio() {
     }
     PacienteServicio.prototype.BuscarPaciente = function (dni) {
-        return fetch("/Turnos/BuscarPaciente?dni=" + dni, {
+        return fetch("/Paciente/BuscarPaciente?dniPaciente=" + dni, {
             method: 'GET'
         })
             .then(function (response) {
@@ -14,7 +14,7 @@ var PacienteServicio = /** @class */ (function () {
             }
             return response.json();
         })
-            .then(function (json) { return json.paciente; });
+            .then(function (json) { return json; });
     };
     return PacienteServicio;
 }());

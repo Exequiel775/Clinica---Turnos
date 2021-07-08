@@ -1,10 +1,10 @@
-import { ModelPaciente }  from './Paciente';
+import { ModelPaciente, Paciente }  from './Paciente';
 
 export class PacienteServicio
 {
-    BuscarPaciente(dni : number) : Promise<ModelPaciente>
+    BuscarPaciente(dni : number) : Promise<Paciente>
     {
-        return fetch(`/Turnos/BuscarPaciente?dni=${dni}`, {
+        return fetch(`/Paciente/BuscarPaciente?dniPaciente=${dni}`, {
             method:'GET'
         })
         .then(response => {
@@ -12,8 +12,8 @@ export class PacienteServicio
                 throw new Error("Ocurrio un error al obtener el paciente " + response.statusText);
             }
 
-            return response.json() as Promise<{paciente : ModelPaciente}>;
+            return response.json() as Promise<Paciente>;
         })
-        .then(json => { return json.paciente } );
+        .then(json => { return json } );
     } 
 }

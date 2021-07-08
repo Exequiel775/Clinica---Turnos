@@ -78,6 +78,7 @@ function CargarMedicos() {
                 case 0: return [4 /*yield*/, _medicoServicio.Get()];
                 case 1:
                     medicos = _a.sent();
+                    console.log(medicos);
                     contenedor = document.querySelector('.contenedor');
                     contenedor.innerHTML = '';
                     medicos.forEach(function (medico) {

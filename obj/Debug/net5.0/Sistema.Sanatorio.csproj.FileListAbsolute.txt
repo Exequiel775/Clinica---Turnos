@@ -106,3 +106,4 @@ C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Especialidad\Index.
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Medicos\Index.cshtml.g.cs
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Medicos\NuevoMedico.cshtml.g.cs
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Turnos\NuevoTurno.cshtml.g.cs
+C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Turnos\BuscarTurnoPaciente.cshtml.g.cs

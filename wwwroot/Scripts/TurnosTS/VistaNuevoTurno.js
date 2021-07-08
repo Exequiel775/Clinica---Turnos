@@ -63,36 +63,71 @@ document.addEventListener('DOMContentLoaded', function () { return __awaiter(voi
         }
     });
 }); });
-document.getElementById('buscar').addEventListener('click', function () { return __awaiter(void 0, void 0, void 0, function () {
-    var turno, grabarTurno;
+document.getElementsByClassName('btnBuscar')[0].addEventListener('click', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var dni;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                turno = new Turno_1.Turno();
-                turno.especialidadId = 1;
-                turno.fechaAtencion = new Date();
-                turno.medicoId = 1;
-                turno.recepcionistaId = 1;
-                turno.paciente.apellido = 'Chaves';
-                turno.paciente.celular = 131312;
-                turno.paciente.dni = 321123321;
-                turno.paciente.email = 'jessica@gmail.com';
-                turno.paciente.fechaNacimiento = new Date();
-                turno.paciente.localidadId = 3;
-                turno.paciente.nombre = 'Jessica Fernanda';
-                turno.paciente.telefono = 32109123;
-                return [4 /*yield*/, GrabarTurno(turno)];
+                dni = document.getElementsByName('DniBuscar')[0];
+                return [4 /*yield*/, BuscarDni(parseInt(dni.value))];
             case 1:
-                grabarTurno = _a.sent();
-                sweetalert2_1.default.fire({
-                    icon: 'info',
-                    title: 'Respuesta de la peticion',
-                    text: grabarTurno.mensaje + ". Estado: " + grabarTurno.estado
-                });
+                _a.sent();
                 return [2 /*return*/];
         }
     });
 }); });
+var formulario = document.getElementById('formulario');
+formulario.addEventListener('submit', function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    var formData, grabarTurno;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                e.preventDefault();
+                formData = new FormData(formulario);
+                console.log("Formdata: " + formData.forEach(function (asd) { return asd; }));
+                return [4 /*yield*/, GenerarTurno(formData)];
+            case 1:
+                grabarTurno = _a.sent();
+                if (grabarTurno.estado) {
+                    sweetalert2_1.default.fire({
+                        icon: 'success',
+                        title: 'Turno grabado',
+                        text: grabarTurno.mensaje
+                    });
+                }
+                else {
+                    sweetalert2_1.default.fire({
+                        icon: 'info',
+                        title: 'Respuesta',
+                        text: "Estado " + grabarTurno.estado + " - " + grabarTurno.mensaje
+                    });
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
+/*
+let turno = new Turno();
+turno.especialidadId = 1;
+turno.fechaAtencion = new Date();
+turno.medicoId = 1;
+turno.recepcionistaId = 1;
+turno.paciente.apellido = 'Chaves';
+turno.paciente.celular = 131312;
+turno.paciente.dni = 321123321;
+turno.paciente.email = 'jessica@gmail.com';
+turno.paciente.fechaNacimiento = new Date();
+turno.paciente.localidadId = 3;
+turno.paciente.nombre = 'Jessica Fernanda';
+turno.paciente.telefono = 32109123;
+
+let grabarTurno = await GrabarTurno(turno);
+
+Swal.fire({
+    icon:'info',
+    title:'Respuesta de la peticion',
+    text:`${grabarTurno.mensaje}. Estado: ${grabarTurno.estado}`
+});*/
 function BuscarDni(dni) {
     return __awaiter(this, void 0, void 0, function () {
         var paciente;
@@ -101,34 +136,22 @@ function BuscarDni(dni) {
                 case 0: return [4 /*yield*/, _pacienteServicio.BuscarPaciente(dni)];
                 case 1:
                     paciente = _a.sent();
-                    if (paciente.paciente != null) {
+                    if (paciente != null) {
                         sweetalert2_1.default.fire({
                             icon: 'success',
                             title: 'Busqueda Exitosa',
                             text: 'Paciente Encontrado...'
                         });
+                        console.log(paciente);
                     }
                     else {
                         sweetalert2_1.default.fire({
                             icon: 'error',
                             title: 'No se encontro al paciente',
-                            text: paciente.mensaje
+                            text: 'El paciente no se encontro'
                         });
                     }
                     return [2 /*return*/];
-            }
-        });
-    });
-}
-function GrabarTurno(turno) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, _turnoServicio.Add(turno)];
-                case 1:
-                    response = _a.sent();
-                    return [2 /*return*/, response];
             }
         });
     });
@@ -203,7 +226,7 @@ function CargarLocalidades(provincia) {
                 case 0: return [4 /*yield*/, _localidadServicio.GetByProvincia(provincia)];
                 case 1:
                     localidades = _a.sent();
-                    selectLocalidad = document.getElementsByClassName('Localidad')[0];
+                    selectLocalidad = document.getElementsByName('Localidad')[0];
                     selectLocalidad.options.length = 0;
                     localidades.forEach(function (localidad) {
                         selectLocalidad.add(new Option(localidad.descripcion, localidad.id.toString()));
@@ -215,14 +238,47 @@ function CargarLocalidades(provincia) {
 }
 function CargarMedicos(especialidad) {
     return __awaiter(this, void 0, void 0, function () {
-        var medicos;
+        var medicos, selectMedico;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, _requestMedico.Get("/Medicos/GetByEspecialidad?especialidad=" + especialidad)];
                 case 1:
                     medicos = _a.sent();
-                    console.log(medicos);
+                    selectMedico = document.getElementsByName('Medico')[0];
+                    selectMedico.options.length = 0;
+                    selectMedico.disabled = true;
+                    window.setTimeout(function () {
+                        selectMedico.disabled = false;
+                        medicos.forEach(function (medico) {
+                            selectMedico.add(new Option(medico.apyNom, medico.id.toString()));
+                        });
+                    }, 1200);
                     return [2 /*return*/];
+            }
+        });
+    });
+}
+function GenerarTurno(form) {
+    return __awaiter(this, void 0, void 0, function () {
+        var objTurno;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    objTurno = new Turno_1.Turno();
+                    objTurno.especialidadId = parseInt(form.get('Especialidad').toString());
+                    objTurno.medicoId = parseInt(form.get('Medico').toString());
+                    objTurno.fechaAtencion = form.get('FechaAtencion');
+                    objTurno.paciente.localidadId = parseInt(form.get('Localidad').toString());
+                    objTurno.paciente.nombre = form.get('Nombre').toString();
+                    objTurno.paciente.apyNom = form.get('Apellido').toString();
+                    objTurno.paciente.dni = parseInt(form.get('Dni').toString());
+                    objTurno.paciente.fechaNacimiento = form.get('FechaNacimiento');
+                    objTurno.paciente.email = form.get('Email').toString();
+                    objTurno.paciente.celular = parseInt(form.get('Celular').toString());
+                    objTurno.paciente.telefono = parseInt(form.get('Telefono').toString());
+                    console.log(objTurno);
+                    return [4 /*yield*/, _turnoServicio.Add(objTurno)];
+                case 1: return [2 /*return*/, _a.sent()];
             }
         });
     });

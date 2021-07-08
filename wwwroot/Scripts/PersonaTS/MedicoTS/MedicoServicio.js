@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MedicoServicio = void 0;
+var Request_1 = require("../../FetchRequestTS/Request");
 var MedicoServicio = /** @class */ (function () {
     function MedicoServicio() {
+        this._request = new Request_1.Request();
     }
     MedicoServicio.prototype.Add = function (formData) {
         return fetch('/Medicos/NuevoMedico', {
@@ -20,18 +22,21 @@ var MedicoServicio = /** @class */ (function () {
         });
     };
     MedicoServicio.prototype.Get = function () {
+        return this._request.Get('/Medicos/JsonMedicos');
+        /*
         return fetch('/Medicos/JsonMedicos', {
-            method: 'GET'
+            method:'GET'
         })
-            .then(function (response) {
+        .then(response => {
             if (!response.ok) {
-                throw new Error("Error al obtener medicos: " + response.statusText);
+                throw new Error(`Error al obtener medicos: ${response.statusText}`);
             }
-            return response.json();
+
+            return response.json() as Promise<{listaMedicos: Medico[]}>;
         })
-            .then(function (json) {
+        .then(json => {
             return json.listaMedicos;
-        });
+        })*/
     };
     MedicoServicio.prototype.Update = function (medicoModificar) {
         return fetch('/Medicos/Modificar', {
