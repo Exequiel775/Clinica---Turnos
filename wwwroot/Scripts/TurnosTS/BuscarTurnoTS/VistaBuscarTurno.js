@@ -37,6 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var BuscarTurnoServicio_1 = require("./BuscarTurnoServicio");
+var Turno_1 = require("../Turno");
+var sweetalert2_1 = require("sweetalert2");
 var _buscarTurnoServicio = new BuscarTurnoServicio_1.BuscarTurnoServicio();
 var btnBuscar = document.querySelector('.btnBuscar');
 btnBuscar.addEventListener('click', function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -63,7 +65,83 @@ function CargarTablaTurnos(response) {
     tablaTurnos.innerHTML = '';
     response.listaObjetos.forEach(function (turno) {
         var row = tablaTurnos.insertRow();
-        row.innerHTML = "\n        <td>" + turno.numero + "</td>\n        <td>" + turno.estadoTurno + "</td>\n        <td>" + turno.fechaEmision + "</td>\n        <td>" + turno.pacienteId + "</td>\n        ";
+        row.innerHTML = "\n        <td>" + turno.numero + "</td>\n        <td>" + turno.estadoTurno + "</td>\n        <td>" + turno.fechaEmisionStr + "</td>\n        <td>" + turno.pacienteId + "</td>\n        <td></td>\n        ";
+        var btnCancelarTurno = document.createElement('button');
+        btnCancelarTurno.classList.add('btn');
+        btnCancelarTurno.title = 'Cancelar Turno';
+        btnCancelarTurno.innerHTML = "\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"18\" fill=\"#ff3f34\" class=\"bi bi-x-octagon-fill\"\n        viewBox=\"0 0 16 16\">\n        <path\n        d=\"M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z\" />\n        </svg>\n        ";
+        btnCancelarTurno.onclick = function () {
+            CancelarTurno(turno.numero, turno.id);
+        };
+        row.addEventListener('click', function () {
+            CargarDatosTurnoSeleccionado(turno);
+            if (tablaTurnos.rows.length > 1) {
+                for (var i = 0; i < tablaTurnos.rows.length; i++) {
+                    tablaTurnos.rows[i].style.backgroundColor = '#fff';
+                    tablaTurnos.rows[i].style.color = '#000';
+                    /*
+                    if (tablaTurnos.rows[i].classList.contains('fila-seleccionada')) {
+                        tablaTurnos.rows[i].classList.remove('fila-seleccionada');
+                        tablaTurnos.rows[i].classList.add('fila-no-seleccionada');
+                    }*/
+                }
+            }
+            row.style.backgroundColor = '#222f3e';
+            row.style.color = '#fff';
+            //row.classList.add('fila-seleccionada');
+        });
+        row.children[4].appendChild(btnCancelarTurno);
+    });
+}
+function CargarDatosTurnoSeleccionado(turno) {
+    console.log(turno);
+    var numero = document.querySelector('.numero');
+    var paciente = document.querySelector('.paciente');
+    var especialidad = document.querySelector('.Especialidad');
+    var estado = document.querySelector('.Estado');
+    numero.value = turno.numero.toString();
+    paciente.value = turno.paciente.apyNom;
+    especialidad.add(new Option(turno.especialidadStr, "-1"));
+    if (estado.classList.contains('text-primary') || estado.classList.contains('text-danger')
+        || estado.classList.contains('text-success')) {
+        estado.classList.remove('text-primary', 'text-danger', 'text-success');
+    }
+    switch (turno.estadoTurno) {
+        case Turno_1.EstadoTurno.Atendido:
+            {
+                estado.classList.add('text-success');
+                estado.textContent = 'Atendido';
+                break;
+            }
+        case Turno_1.EstadoTurno.Ausente:
+            {
+                estado.classList.add('text-danger');
+                estado.textContent = 'Paciente Ausente';
+            }
+        case Turno_1.EstadoTurno.En_Espera:
+            {
+                estado.classList.add('text-primary');
+                estado.textContent = 'Turno en espera';
+                break;
+            }
+        case Turno_1.EstadoTurno.Cancelado:
+            {
+                estado.classList.add('text-warning');
+                estado.textContent = 'Cancelado';
+                break;
+            }
+    }
+}
+function CancelarTurno(numero, id) {
+    sweetalert2_1.default.fire({
+        title: "\u00BFDesea cancelar el turno n\u00FAmero " + numero + "?",
+        showCancelButton: true,
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            sweetalert2_1.default.fire('Cancelado!', "Se procedera a cancelar el id: " + id, 'success');
+        }
     });
 }
 //# sourceMappingURL=VistaBuscarTurno.js.map

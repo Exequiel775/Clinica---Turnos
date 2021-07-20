@@ -270,7 +270,7 @@ function GenerarTurno(form) {
                     objTurno.fechaAtencion = form.get('FechaAtencion');
                     objTurno.paciente.localidadId = parseInt(form.get('Localidad').toString());
                     objTurno.paciente.nombre = form.get('Nombre').toString();
-                    objTurno.paciente.apyNom = form.get('Apellido').toString();
+                    objTurno.paciente.apellido = form.get('Apellido').toString();
                     objTurno.paciente.dni = parseInt(form.get('Dni').toString());
                     objTurno.paciente.fechaNacimiento = form.get('FechaNacimiento');
                     objTurno.paciente.email = form.get('Email').toString();

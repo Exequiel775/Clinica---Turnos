@@ -1,4 +1,4 @@
-export class Response<T>
+export class Response<T = null>
 {
     estado : boolean;
     mensaje : string;

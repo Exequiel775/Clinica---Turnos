@@ -4,6 +4,7 @@ namespace Constantes.Clases
     {
         Atendido = 1,
         Ausente = 2,
-        En_Espera = 3
+        En_Espera = 3,
+        Cancelado = 4
     }
 }

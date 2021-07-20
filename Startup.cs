@@ -27,6 +27,8 @@ namespace Sistema.Sanatorio
     using Servicios.Implementacion.Turno;
     using SimpleInjector;
     using Constantes.Clases.Response;
+    using Servicios.Interface.Usuario;
+    using Servicios.Implementacion.Usuario;
     public class Startup
     {
         private Container container = new Container();
@@ -87,6 +89,7 @@ namespace Sistema.Sanatorio
             container.Register<IPacienteServicio, PacienteServicio>(Lifestyle.Transient);
             container.Register<ITurnoServicio, TurnoServicio>(Lifestyle.Transient);
             container.Register<Response>(Lifestyle.Transient);
+            container.Register<IUsuarioServicio, UsuarioServicio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,7 +120,7 @@ namespace Sistema.Sanatorio
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Seguridad}/{action=Login}/{id?}");
                 endpoints.MapHub<LocalidadHub>("/hubLocalidad");
                 endpoints.MapHub<PruebaHub>("/hubPrueba");
             });

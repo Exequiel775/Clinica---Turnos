@@ -29,7 +29,10 @@ namespace Infraestructura.UnidadDeTrabajo
         public IRepositorio<Turno> TurnoRepositorio => _turnoRepositorio ?? (_turnoRepositorio = new Repositorio<Turno>(_db));
         private IRepositorio<Paciente> _pacienteRepositorio;
         public IRepositorio<Paciente> PacienteRepositorio => _pacienteRepositorio ?? (_pacienteRepositorio = new Repositorio<Paciente>(_db));
-
+        private IRepositorioUsuario _usuarioRepositorio;
+        public IRepositorioUsuario UsuarioRepositorio => _usuarioRepositorio ?? (_usuarioRepositorio = new RepositorioUsuario(_db));
+        private IRepositorioPersona _personaRepositorio;
+        public IRepositorioPersona PersonaRepositorio => _personaRepositorio ?? (_personaRepositorio = new RepositorioPersona(_db));
         public async Task<bool> CommitAsync() => await _db.SaveChangesAsync() > 0;
         public async Task RoolBack() => await _db.DisposeAsync();
         public void CommitNoAsync() => _db.SaveChanges();

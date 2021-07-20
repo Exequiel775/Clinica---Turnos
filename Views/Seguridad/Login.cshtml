@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital@1&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+
+<body>
+
+    <div class="container-fluid h-100 contenedor">
+        <div class="row h-100 justify-content-center align-items-center">
+            <form action="/Seguridad/IniciarSesion" method="POST" class="col-12" id="form">
+                <div class="texto">
+                    <h3>INICIAR SESIÓN</h3>
+                </div>
+                <hr />
+                <div class="form-group" style="padding-top: 10px; padding-bottom: 10px; color:#182C61;">
+                    <label>Usuario</label>
+                    <input type="text" class="form-control" name="User" placeholder="Usuario...">
+                </div>
+                <div class="form-group" style="padding-top: 10px; padding-bottom: 10px; color:#182C61;">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" name="Password" placeholder="Contraseña...">
+                </div>
+                <div class="form-group" style="padding-top: 20px; padding-bottom: 20px;">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-primary" style="width: 100%;" value="INGRESAR" />
+                        </div>
+                        <div class="col-6">
+                            <a href="#" style="color: #6D214F; text-decoration: none;">Olvide mi contraseña</a>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--
+    <div class="d-flex justify-content-center contenedor">
+        <form action="" method="POST">
+            <div class="form-group">
+                 <label>Usuario</label>
+                 <input type="text" class="form-control" name="Usuario" />
+            </div>
+        </form>
+    </div>
+-->
+</body>
+
+<script src="~/VistasJs/VistaLoginJs/main.js"></script>

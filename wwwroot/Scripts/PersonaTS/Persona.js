@@ -5,6 +5,7 @@ var Persona = /** @class */ (function () {
     function Persona() {
         this.email = null;
         this.telefono = null;
+        this.usuario = null;
     }
     return Persona;
 }());

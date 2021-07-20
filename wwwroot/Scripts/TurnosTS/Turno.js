@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Turno = void 0;
+exports.EstadoTurno = exports.Turno = void 0;
 var Paciente_1 = require("../PacienteTS/Paciente");
 var Turno = /** @class */ (function () {
     function Turno() {
@@ -14,5 +14,6 @@ var EstadoTurno;
     EstadoTurno[EstadoTurno["Atendido"] = 1] = "Atendido";
     EstadoTurno[EstadoTurno["Ausente"] = 2] = "Ausente";
     EstadoTurno[EstadoTurno["En_Espera"] = 3] = "En_Espera";
-})(EstadoTurno || (EstadoTurno = {}));
+    EstadoTurno[EstadoTurno["Cancelado"] = 4] = "Cancelado";
+})(EstadoTurno = exports.EstadoTurno || (exports.EstadoTurno = {}));
 //# sourceMappingURL=Turno.js.map

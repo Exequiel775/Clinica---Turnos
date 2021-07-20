@@ -76,7 +76,7 @@ namespace Servicios.Implementacion.Turno
             // Me falta hacer el modal para buscar un turno por numero y por dni de paciente
             // En caso q el turno exista, se debe mostrar los datos del mismo
             // asi mismo esta info seria para ver si el estado del turno
-            var turnoBuscar = _unidadDeTrabajo.TurnoRepositorio.GetNoAsync("Paciente")
+            var turnoBuscar = _unidadDeTrabajo.TurnoRepositorio.GetNoAsync("Paciente,Especialidad")
             .Where(x => x.Numero == numero || x.Paciente.Dni == dniPaciente);
 
             if (turnoBuscar.Any())
@@ -86,8 +86,15 @@ namespace Servicios.Implementacion.Turno
                     Id = x.Id,
                     Numero = x.Numero,
                     FechaEmision = x.FechaEmision,
+                    FechaAtencion = x.FechaAtencion,
                     EstadoTurno = x.EstadoTurno,
-                    PacienteId = x.PacienteId
+                    PacienteId = x.PacienteId,
+                    EspecialidadStr = x.Especialidad.Descripcion,
+                    Paciente = new PacienteDto
+                    {
+                        Nombre = x.Paciente.Nombre,
+                        Apellido = x.Paciente.Apellido
+                    }
                 }).AsQueryable();
             }
 

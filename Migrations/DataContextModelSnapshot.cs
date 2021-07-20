@@ -19,6 +19,36 @@ namespace Sistema.Sanatorio.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ControladorPerfil", b =>
+                {
+                    b.Property<long>("ControladoresId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PerfilesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ControladoresId", "PerfilesId");
+
+                    b.HasIndex("PerfilesId");
+
+                    b.ToTable("ControladorPerfil");
+                });
+
+            modelBuilder.Entity("Entidades.Controlador", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Controladores");
+                });
+
             modelBuilder.Entity("Entidades.Especialidad", b =>
                 {
                     b.Property<long>("Id")
@@ -54,6 +84,36 @@ namespace Sistema.Sanatorio.Migrations
                     b.HasIndex("ProvinciaId");
 
                     b.ToTable("Localidad");
+                });
+
+            modelBuilder.Entity("Entidades.Perfil", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Perfiles");
+                });
+
+            modelBuilder.Entity("Entidades.Perfil_Controlador", b =>
+                {
+                    b.Property<long>("PerfilId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ControladorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("PerfilId", "ControladorId");
+
+                    b.HasIndex("ControladorId");
+
+                    b.ToTable("Perfil_Controladores");
                 });
 
             modelBuilder.Entity("Entidades.Persona", b =>
@@ -159,6 +219,65 @@ namespace Sistema.Sanatorio.Migrations
                     b.ToTable("Turnos");
                 });
 
+            modelBuilder.Entity("Entidades.Usuario", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("EstaBloqueado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("PersonaId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonaId")
+                        .IsUnique();
+
+                    b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Entidades.Usuario_Perfil", b =>
+                {
+                    b.Property<long>("UsuarioId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PerfilId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("UsuarioId", "PerfilId");
+
+                    b.HasIndex("PerfilId");
+
+                    b.ToTable("Usuario_Perfiles");
+                });
+
+            modelBuilder.Entity("PerfilUsuario", b =>
+                {
+                    b.Property<long>("PerfilesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UsuariosId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("PerfilesId", "UsuariosId");
+
+                    b.HasIndex("UsuariosId");
+
+                    b.ToTable("PerfilUsuario");
+                });
+
             modelBuilder.Entity("Entidades.Medico", b =>
                 {
                     b.HasBaseType("Entidades.Persona");
@@ -201,6 +320,21 @@ namespace Sistema.Sanatorio.Migrations
                     b.HasDiscriminator().HasValue("Recepcionista");
                 });
 
+            modelBuilder.Entity("ControladorPerfil", b =>
+                {
+                    b.HasOne("Entidades.Controlador", null)
+                        .WithMany()
+                        .HasForeignKey("ControladoresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entidades.Perfil", null)
+                        .WithMany()
+                        .HasForeignKey("PerfilesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Entidades.Localidad", b =>
                 {
                     b.HasOne("Entidades.Provincia", "Provincia")
@@ -210,6 +344,25 @@ namespace Sistema.Sanatorio.Migrations
                         .IsRequired();
 
                     b.Navigation("Provincia");
+                });
+
+            modelBuilder.Entity("Entidades.Perfil_Controlador", b =>
+                {
+                    b.HasOne("Entidades.Controlador", "Controlador")
+                        .WithMany()
+                        .HasForeignKey("ControladorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entidades.Perfil", "Perfil")
+                        .WithMany()
+                        .HasForeignKey("PerfilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Controlador");
+
+                    b.Navigation("Perfil");
                 });
 
             modelBuilder.Entity("Entidades.Persona", b =>
@@ -258,6 +411,51 @@ namespace Sistema.Sanatorio.Migrations
                     b.Navigation("Recepcionista");
                 });
 
+            modelBuilder.Entity("Entidades.Usuario", b =>
+                {
+                    b.HasOne("Entidades.Persona", "Persona")
+                        .WithOne("Usuario")
+                        .HasForeignKey("Entidades.Usuario", "PersonaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("Entidades.Usuario_Perfil", b =>
+                {
+                    b.HasOne("Entidades.Perfil", "Perfil")
+                        .WithMany()
+                        .HasForeignKey("PerfilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entidades.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Perfil");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("PerfilUsuario", b =>
+                {
+                    b.HasOne("Entidades.Perfil", null)
+                        .WithMany()
+                        .HasForeignKey("PerfilesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entidades.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UsuariosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Entidades.Medico", b =>
                 {
                     b.HasOne("Entidades.Especialidad", "Especialidad")
@@ -279,6 +477,11 @@ namespace Sistema.Sanatorio.Migrations
             modelBuilder.Entity("Entidades.Localidad", b =>
                 {
                     b.Navigation("Personas");
+                });
+
+            modelBuilder.Entity("Entidades.Persona", b =>
+                {
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Entidades.Provincia", b =>

@@ -1,5 +1,8 @@
+import {Usuario} from '../UsuarioTS/Usuario';
+
 class Persona
 {
+    public item : boolean;
     public id : number;
     public localidadId : number;
     public provinciaId : number;
@@ -10,6 +13,7 @@ class Persona
     public email : string = null;
     public celular : number;
     public telefono : number = null;
+    public usuario : Usuario = null;
     // SOLO LECTURA
     public apyNom : string;
     public localidad : string;

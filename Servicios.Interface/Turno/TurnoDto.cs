@@ -16,6 +16,9 @@ namespace Servicios.Interface.Turno
         [DataType(DataType.Date)]
         public DateTime FechaEmision { get; set; }
         [DataType(DataType.DateTime)]
+        public string FechaAtencionStr => FechaAtencion.ToString("MM/dd/yyyy HH:mm");
+        public string FechaEmisionStr => FechaEmision.ToString("MM/dd/yyyy");
+        public string EspecialidadStr { get; set; }
         public DateTime FechaAtencion { get; set; }
         public EstadoTurno EstadoTurno { get; set; }
         public PacienteDto Paciente { get; set; }
