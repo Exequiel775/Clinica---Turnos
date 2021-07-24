@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Nuevo Perfil";
+}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+<div class="container">
+    <div class="texto">
+        <h3>NUEVO PERFIL</h3>
+    </div>
+    <hr />
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 contenedor-form">
+        <form action="/Perfil/Add" method="POST" id="form">
+            <div class="form-group">
+                <label>Descripción</label>
+                <input type="text" class="form-control" name="Descripcion" />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Grabar" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<style type="text/css">
+    .texto {
+        text-align: center;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    body {
+        font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .contenedor-form {
+        width: 50%;
+    }
+</style>
+
+<script src="~/VistasJs/NuevoPerfilJs/main.js"></script>

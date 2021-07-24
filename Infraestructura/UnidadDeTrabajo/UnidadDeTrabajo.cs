@@ -33,6 +33,12 @@ namespace Infraestructura.UnidadDeTrabajo
         public IRepositorioUsuario UsuarioRepositorio => _usuarioRepositorio ?? (_usuarioRepositorio = new RepositorioUsuario(_db));
         private IRepositorioPersona _personaRepositorio;
         public IRepositorioPersona PersonaRepositorio => _personaRepositorio ?? (_personaRepositorio = new RepositorioPersona(_db));
+        private IRepositorio<Perfil> _perfilRepositorio;
+        public IRepositorio<Perfil> PerfilRepositorio => _perfilRepositorio ?? (_perfilRepositorio = new Repositorio<Perfil>(_db));
+        private IRepositorio<Controlador> _controladorRepositorio;
+        public IRepositorio<Controlador> ControladorRepositorio => _controladorRepositorio ?? (_controladorRepositorio = new Repositorio<Controlador>(_db));
+        private IRepositorioPerfilControlador _perfilControladorRepositorio;
+        public IRepositorioPerfilControlador PerfilControladorRepositorio => _perfilControladorRepositorio ?? (_perfilControladorRepositorio = new RepositorioPerfilControlador(_db));
         public async Task<bool> CommitAsync() => await _db.SaveChangesAsync() > 0;
         public async Task RoolBack() => await _db.DisposeAsync();
         public void CommitNoAsync() => _db.SaveChanges();

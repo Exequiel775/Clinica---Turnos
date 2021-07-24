@@ -65,6 +65,26 @@ namespace Infraestructura.Repositorio
             return await resultado.FirstOrDefaultAsync(x => x.Id == entidadId);
         }
 
+        public virtual async Task<bool> DeleteAsync(T entidad)
+        {
+            if (System.Object.ReferenceEquals(entidad, null)) throw new System.Exception("La entidad no puede ser Null.");
+            try
+            {
+                var entidadEliminar = await _db.Set<T>().FirstOrDefaultAsync(x => x.Id == entidad.Id);
+
+                if (entidadEliminar == null)
+                    throw new System.Exception("Ocurrio un error al obtener la entidad solicitada");
+
+                _db.Remove(entidadEliminar);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         // NO ASINCRONOS
 
         public void AddNoAsync(T entidadNueva)
@@ -110,6 +130,25 @@ namespace Infraestructura.Repositorio
             .Aggregate<string, IQueryable<T>>(_db.Set<T>(), (current, include) => current.Include(include));
 
             return resultado.FirstOrDefault(x => x.Id == entidadId);
+        }
+
+        public virtual bool Delete(T entidad)
+        {
+            if (System.Object.ReferenceEquals(entidad, null))
+                throw new System.Exception("La entidad no puede ser Null");
+
+            try
+            {
+                var entidadEliminar = _db.Set<T>().FirstOrDefault(x => x.Id == entidad.Id);
+
+                _db.Remove(entidadEliminar);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

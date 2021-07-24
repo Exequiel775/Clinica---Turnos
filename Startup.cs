@@ -29,6 +29,10 @@ namespace Sistema.Sanatorio
     using Constantes.Clases.Response;
     using Servicios.Interface.Usuario;
     using Servicios.Implementacion.Usuario;
+    using Servicios.Interface.Perfil;
+    using Servicios.Implementacion.Perfil;
+    using Servicios.Interface.Controlador;
+    using Servicios.Implementacion.Controlador;
     public class Startup
     {
         private Container container = new Container();
@@ -90,6 +94,8 @@ namespace Sistema.Sanatorio
             container.Register<ITurnoServicio, TurnoServicio>(Lifestyle.Transient);
             container.Register<Response>(Lifestyle.Transient);
             container.Register<IUsuarioServicio, UsuarioServicio>();
+            container.Register<IPerfilServicio, PerfilServicio>();
+            container.Register<IControladorServicio, ControladorServicio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,10 +11,12 @@ namespace Entidad.Base.Repositorio
         void UpdateNoAsync(T entidadModificar);
         IEnumerable<T> GetNoAsync(string propiedadNavegacion = "");
         T GetByIdNoAsync(long entidadId, string propiedadNavegacion = "");
+        bool Delete(T entidad);
         // ASYNCRONOS
         Task<bool> AddAsync(T entidadNueva);
         Task UpdateAsync(T entidadModificar);
         Task<IQueryable<T>> GetAsync(Expression<Func<T, bool>> filtro = null, string propiedadNavegacion = "");
         Task<T> GetByIdAsync(long entidadId, string propiedadNavegacion = "");
+        Task<bool> DeleteAsync(T entidad);
     }
 }

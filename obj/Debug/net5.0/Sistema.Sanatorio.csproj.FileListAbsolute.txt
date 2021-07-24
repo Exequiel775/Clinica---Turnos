@@ -109,3 +109,6 @@ C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Turnos\NuevoTurno.c
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Turnos\BuscarTurnoPaciente.cshtml.g.cs
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Seguridad\ListadoUsuarios.cshtml.g.cs
 C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Seguridad\Login.cshtml.g.cs
+C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Perfil\Index.cshtml.g.cs
+C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Perfil\NuevoPerfil.cshtml.g.cs
+C:\Users\User\Sistema.Sanatorio\obj\Debug\net5.0\Razor\Views\Controlador\Index.cshtml.g.cs

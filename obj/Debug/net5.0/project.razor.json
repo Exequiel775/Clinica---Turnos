@@ -15659,6 +15659,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Sistema.Sanatorio\\Views\\Perfil\\Index.cshtml",
+      "TargetPath": "Views\\Perfil\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Sistema.Sanatorio\\Views\\Persona\\Recepcionistas.cshtml",
       "TargetPath": "Views\\Persona\\Recepcionistas.cshtml",
       "FileKind": "mvc"
@@ -15674,6 +15679,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\User\\Sistema.Sanatorio\\Views\\Perfil\\NuevoPerfil.cshtml",
+      "TargetPath": "Views\\Perfil\\NuevoPerfil.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\User\\Sistema.Sanatorio\\Views\\Especialidad\\Index.cshtml",
       "TargetPath": "Views\\Especialidad\\Index.cshtml",
       "FileKind": "mvc"
@@ -15686,6 +15696,11 @@
     {
       "FilePath": "c:\\Users\\User\\Sistema.Sanatorio\\Views\\Home\\Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\User\\Sistema.Sanatorio\\Views\\Controlador\\Index.cshtml",
+      "TargetPath": "Views\\Controlador\\Index.cshtml",
       "FileKind": "mvc"
     },
     {

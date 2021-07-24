@@ -17,5 +17,8 @@ namespace Entidades.UnidadDeTrabajo
         IRepositorio<Paciente> PacienteRepositorio { get; }
         IRepositorioUsuario UsuarioRepositorio { get; }
         IRepositorioPersona PersonaRepositorio { get; }
+        IRepositorio<Perfil> PerfilRepositorio { get; }
+        IRepositorio<Controlador> ControladorRepositorio { get; }
+        IRepositorioPerfilControlador PerfilControladorRepositorio { get; }
      }
 }

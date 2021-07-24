@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Listado Perfiles";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@500&display=swap" rel="stylesheet">
+
+<div class="texto">
+    <h3>PERFILES CREADOS EN EL SISTEMA</h3>
+</div>
+<div class="contenedor">
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Descripción</th>
+                    <th>Acciónes</th>
+                </tr>
+            </thead>
+            <tbody id="body-tabla">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style type="text/css">
+    body {
+        background-color: #dfe6e9;
+        font-family: 'Baloo Bhaina 2', cursive;
+    }
+
+    .texto {
+        background-color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .contenedor{
+        background-color: white;
+        padding:15px;
+    }
+</style>
+
+<script src="~/VistasJs/IndexPerfilJs/main.js"></script>
